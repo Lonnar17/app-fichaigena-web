@@ -15,7 +15,9 @@
 
     <title>Ficha Ígnea</title>
     <link rel="stylesheet" href="css/web-jornada.css" />
+    <link rel="stylesheet" href="css/web-grimorio.css" />
    <link
+   
   href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cinzel+Decorative:wght@700&family=MedievalSharp&display=swap"
   rel="stylesheet"
 />
@@ -819,10 +821,12 @@
 <!-- ================= SHEET DE DETALHES DO MONSTRO ================= -->
 <div id="sheetMonstroOverlay" class="sheet-monstro-overlay" style="display:none;" onclick="fecharSheetMonstro()"></div>
 
+<div id="sheetPeekPrev" class="sheet-peek sheet-peek-prev" onclick="trocarMonstroSheet(-1)"></div>
 <div id="sheetMonstro" class="sheet-monstro" style="display:none;">
   <div class="sheet-handle" onclick="alternarSheetFull()"></div>
   <div id="conteudoSheetMonstro"></div>
 </div>
+<div id="sheetPeekNext" class="sheet-peek sheet-peek-next" onclick="trocarMonstroSheet(1)"></div>
 
   <div id="tela-inicial" class="container" style="display:none;">
   <button class="btn-voltar-modos" onclick="abrirTelaModo()">← Voltar</button>
