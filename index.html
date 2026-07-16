@@ -1,0 +1,2623 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" href="icon-512.png" />
+    <link rel="apple-touch-icon" href="icon-512.png" />
+    <meta name="theme-color" content="#1a1410" />
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    
+
+
+    <title>Ficha Ígnea</title>
+    <link rel="stylesheet" href="css/web-jornada.css" />
+   <link
+  href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cinzel+Decorative:wght@700&family=MedievalSharp&display=swap"
+  rel="stylesheet"
+/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  </head>
+
+  <body>
+    <div class="folhas-bg"></div>
+    <div class="header-rpg">
+      <h1 class="titulo-rpg">
+  <div class="espada-titulo-wrap">
+    <img src="logo-ficha-ignea.png" class="espada-titulo" />
+  </div>
+  <span>FICHA ÍGNEA</span>
+</h1>
+      </h1>
+    </div>
+
+    <!-- ================= TELA INICIAL ================= -->
+    
+    <div id="loginBox" class="container login-box">
+  <h2 class="titulo-secao">Entrar na Ficha Ígnea</h2>
+
+  <input id="loginEmail" placeholder="Email" />
+  <input id="loginSenha" type="password" placeholder="Senha" />
+  <div id="loginErro" class="login-erro"></div>
+
+  <div class="login-botoes">
+    <button class="btn-login" onclick="fazerLogin()">Entrar</button>
+    <button class="btn-login btn-login-secundario" onclick="criarConta()">Criar conta</button>
+    <button class="btn-login btn-login-recuperar" onclick="recuperarSenha()">  Esqueci a senha  </button>
+  </div>
+</div>
+
+<!-- ================= ESCOLHA DE MODO ================= -->
+<div id="tela-modo" style="display:none;position:fixed;inset:0;z-index:5000;background:#0e0907;color:#F8F4E3;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px 36px;overflow-y:auto;">
+
+  <!-- fundos animados -->
+  <div style="position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(123,30,40,0.22) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 50% 100%,rgba(60,13,20,0.35) 0%,transparent 55%),linear-gradient(180deg,#0e0907 0%,#160d0a 50%,#0a0605 100%);pointer-events:none;"></div>
+  <div id="tmBgJornada" style="position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 30% 50%,rgba(100,60,10,0.2) 0%,transparent 65%);opacity:0;transition:opacity 0.6s ease;pointer-events:none;"></div>
+  <div id="tmBgGrimorio" style="position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(123,30,40,0.25) 0%,transparent 65%);opacity:0;transition:opacity 0.6s ease;pointer-events:none;"></div>
+
+  <div style="position:relative;z-index:2;width:100%;max-width:420px;display:flex;flex-direction:column;align-items:center;">
+
+    <!-- HEADER -->
+    <div style="text-align:center;margin-bottom:28px;">
+      <div style="font-family:'Cinzel Decorative',serif;font-size:10px;letter-spacing:0.45em;color:#A88D42;text-transform:uppercase;margin-bottom:10px;opacity:0.75;">Ficha Ígnea</div>
+      <h1 style="font-family:'Cinzel',serif;font-size:clamp(20px,6vw,26px);font-weight:700;letter-spacing:0.08em;color:#F8F4E3;line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,0.6);">Escolha seu <span style="background:linear-gradient(135deg,#E8CC80,#C4A95B,#A88D42);-webkit-background-clip:text;color:transparent;">Caminho</span></h1>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0 4px;">
+        <div style="height:1px;width:44px;background:linear-gradient(90deg,transparent,rgba(196,169,91,0.5));"></div>
+        <div style="width:5px;height:5px;background:#C4A95B;transform:rotate(45deg);opacity:0.8;"></div>
+        <div style="height:1px;width:44px;background:linear-gradient(90deg,rgba(196,169,91,0.5),transparent);"></div>
+      </div>
+      <p style="font-family:'EB Garamond',serif;font-style:italic;font-size:13px;color:#9A8A70;">Jornada ou Grimório?</p>
+    </div>
+
+    <!-- CARDS -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;margin-bottom:20px;">
+
+      <!-- JORNADA -->
+      <div id="tmCardJornada"
+        onclick="tmSelectPath('jornada')"
+        onmouseenter="tmHover('jornada')" onmouseleave="tmUnhover()"
+        style="position:relative;border-radius:20px;cursor:pointer;overflow:hidden;aspect-ratio:3/4.2;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(196,169,91,0.18);background:linear-gradient(160deg,#1e1508 0%,#2a1a08 50%,#140e05 100%);box-shadow:0 8px 32px rgba(0,0,0,0.5);transition:transform 0.35s ease,box-shadow 0.35s ease,border-color 0.35s ease;-webkit-tap-highlight-color:transparent;">
+        <!-- cantos -->
+        <span style="position:absolute;top:8px;left:8px;width:14px;height:14px;border-top:1px solid #C4A95B;border-left:1px solid #C4A95B;opacity:0.45;pointer-events:none;"></span>
+        <span style="position:absolute;top:8px;right:8px;width:14px;height:14px;border-top:1px solid #C4A95B;border-right:1px solid #C4A95B;opacity:0.45;pointer-events:none;"></span>
+        <span style="position:absolute;bottom:8px;left:8px;width:14px;height:14px;border-bottom:1px solid #C4A95B;border-left:1px solid #C4A95B;opacity:0.45;pointer-events:none;"></span>
+        <span style="position:absolute;bottom:8px;right:8px;width:14px;height:14px;border-bottom:1px solid #C4A95B;border-right:1px solid #C4A95B;opacity:0.45;pointer-events:none;"></span>
+        <!-- imagem -->
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-bottom:55px;">
+          <img src="logo-ficha-ignea.png" style="width:68%;height:auto;object-fit:contain;opacity:0.85;filter:drop-shadow(0 0 18px rgba(196,169,91,0.35));transition:filter 0.3s ease;transform:rotate(90deg);">
+        </div>
+        <!-- glow hover -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(196,169,91,0.1) 0%,transparent 65%);opacity:0;transition:opacity 0.4s;pointer-events:none;" class="tm-glow-jornada"></div>
+        <!-- check -->
+        <div id="tmCheckJornada" style="position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;background:#C4A95B;display:flex;align-items:center;justify-content:center;font-size:10px;color:#1a0e05;font-weight:bold;opacity:0;transform:scale(0.5);transition:opacity 0.3s,transform 0.3s;z-index:5;">✓</div>
+        <!-- footer -->
+        <div style="position:relative;z-index:2;padding:12px 12px 14px;background:linear-gradient(0deg,rgba(0,0,0,0.8) 0%,transparent 100%);text-align:center;">
+          <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.08em;color:#E8CC80;text-shadow:0 1px 6px rgba(0,0,0,0.8);">Jornada</div>
+          <div style="font-size:11px;color:#9A8A70;letter-spacing:0.15em;text-transform:uppercase;margin-top:2px;">Jogador</div>
+          <div id="tmDivJornada" style="width:28px;height:1px;background:rgba(196,169,91,0.3);margin:7px auto 0;transition:width 0.3s,background 0.3s;"></div>
+        </div>
+      </div>
+
+      <!-- GRIMÓRIO -->
+      <div id="tmCardGrimorio"
+        onclick="tmSelectPath('grimorio')"
+        onmouseenter="tmHover('grimorio')" onmouseleave="tmUnhover()"
+        style="position:relative;border-radius:20px;cursor:pointer;overflow:hidden;aspect-ratio:3/4.2;display:flex;flex-direction:column;justify-content:flex-end;border:1px solid rgba(123,30,40,0.25);background:linear-gradient(160deg,#180a0d 0%,#220d12 50%,#0e0608 100%);box-shadow:0 8px 32px rgba(0,0,0,0.5);transition:transform 0.35s ease,box-shadow 0.35s ease,border-color 0.35s ease;-webkit-tap-highlight-color:transparent;">
+        <!-- cantos -->
+        <span style="position:absolute;top:8px;left:8px;width:14px;height:14px;border-top:1px solid #7B1E28;border-left:1px solid #7B1E28;opacity:0.5;pointer-events:none;"></span>
+        <span style="position:absolute;top:8px;right:8px;width:14px;height:14px;border-top:1px solid #7B1E28;border-right:1px solid #7B1E28;opacity:0.5;pointer-events:none;"></span>
+        <span style="position:absolute;bottom:8px;left:8px;width:14px;height:14px;border-bottom:1px solid #7B1E28;border-left:1px solid #7B1E28;opacity:0.5;pointer-events:none;"></span>
+        <span style="position:absolute;bottom:8px;right:8px;width:14px;height:14px;border-bottom:1px solid #7B1E28;border-right:1px solid #7B1E28;opacity:0.5;pointer-events:none;"></span>
+        <!-- imagem -->
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding-bottom:55px;">
+          <img src="img/logo-grimorio-nova.png" style="width:65%;height:auto;object-fit:contain;opacity:0.85;filter:drop-shadow(0 0 18px rgba(123,30,40,0.5));transition:filter 0.3s ease;">
+        </div>
+        <!-- glow hover -->
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(123,30,40,0.18) 0%,transparent 65%);opacity:0;transition:opacity 0.4s;pointer-events:none;" class="tm-glow-grimorio"></div>
+        <!-- check -->
+        <div id="tmCheckGrimorio" style="position:absolute;top:10px;right:10px;width:20px;height:20px;border-radius:50%;background:#7B1E28;display:flex;align-items:center;justify-content:center;font-size:10px;color:#F8F4E3;font-weight:bold;opacity:0;transform:scale(0.5);transition:opacity 0.3s,transform 0.3s;z-index:5;">✓</div>
+        <!-- footer -->
+        <div style="position:relative;z-index:2;padding:12px 12px 14px;background:linear-gradient(0deg,rgba(0,0,0,0.8) 0%,transparent 100%);text-align:center;">
+          <div style="font-family:'Cinzel',serif;font-size:14px;font-weight:700;letter-spacing:0.08em;color:#e88888;text-shadow:0 1px 6px rgba(0,0,0,0.8);">Grimório</div>
+          <div style="font-size:11px;color:#9A8A70;letter-spacing:0.15em;text-transform:uppercase;margin-top:2px;">Mestre</div>
+          <div id="tmDivGrimorio" style="width:28px;height:1px;background:rgba(123,30,40,0.4);margin:7px auto 0;transition:width 0.3s,background 0.3s;"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DESCRIÇÃO -->
+    <div id="tmDesc" style="width:100%;min-height:50px;text-align:center;margin-bottom:18px;transition:opacity 0.3s ease;">
+      <p style="font-style:italic;font-size:13px;color:rgba(154,138,112,0.45);letter-spacing:0.02em;">Toque em um caminho para revelar seu destino…</p>
+    </div>
+
+    <!-- BOTÃO ENTRAR -->
+    <button id="tmBtnEntrar" disabled onclick="tmConfirm()"
+  style="width:90%;max-width:380px;padding:18px 32px;border-radius:9999px;border:1px solid rgba(196,169,91,0.4);background:transparent;color:rgba(232,204,128,0.5);font-family:'Cinzel',serif;font-size:18px;font-weight:700;letter-spacing:0.18em;cursor:not-allowed;transition:all 0.4s ease;margin:0 auto 28px auto;display:block;text-align:center;overflow:hidden;">
+  Adentrar
+</button>
+
+<!-- BOTÃO SAIR -->
+<button onclick="abrirTelaPlanos()"
+  style="background:linear-gradient(135deg,rgba(196,169,91,0.25),rgba(196,169,91,0.12));border:1px solid rgba(196,169,91,0.75);color:#E8CC80;font-family:'Cinzel',serif;font-size:10px;font-weight:700;letter-spacing:0.14em;padding:8px 20px;border-radius:100px;cursor:pointer;transition:all 0.3s ease;margin-top:20px;display:block;width:auto;text-transform:uppercase;box-shadow:0 0 20px rgba(196,169,91,0.2),inset 0 1px 0 rgba(255,255,255,0.06);text-shadow:0 0 12px rgba(196,169,91,0.5);">
+  ✦ Plano Gratuito · Ver Planos
+</button>
+
+<div style="height:24px;"></div>
+
+<button onclick="sairConta()"
+  style="background:transparent;border:none;color:rgba(154,138,112,0.6);font-family:'Cinzel',serif;font-size:10px;letter-spacing:0.1em;padding:4px 12px;border-radius:100px;cursor:pointer;transition:all 0.3s ease;margin-top:8px;">
+  Sair da conta
+</button>
+
+  </div>
+
+  <script>
+    var tmSelected = null;
+
+    function tmHover(p) {
+      if (tmSelected) return;
+      document.getElementById('tmBgJornada').style.opacity  = p==='jornada'  ? '1' : '0';
+      document.getElementById('tmBgGrimorio').style.opacity = p==='grimorio' ? '1' : '0';
+    }
+    function tmUnhover() {
+      if (tmSelected) return;
+      document.getElementById('tmBgJornada').style.opacity  = '0';
+      document.getElementById('tmBgGrimorio').style.opacity = '0';
+    }
+    function tmSelectPath(p) {
+      tmSelected = p;
+
+      // cards
+      var cj = document.getElementById('tmCardJornada');
+      var cg = document.getElementById('tmCardGrimorio');
+      if (p === 'jornada') {
+  cj.style.borderColor = 'rgba(196,169,91,0.55)';
+  cj.style.transform = 'translateY(-8px) scale(1.04)';
+  cj.style.opacity = '1';
+  cj.style.boxShadow = '0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(196,169,91,0.15)';
+  cj.style.filter = 'brightness(1.15)';
+  cg.style.borderColor = 'rgba(123,30,40,0.15)';
+  cg.style.transform = 'scale(0.96)';
+  cg.style.opacity = '0.4';
+  cg.style.boxShadow = 'none';
+  cg.style.filter = 'brightness(0.6)';
+} else {
+  cg.style.borderColor = 'rgba(123,30,40,0.65)';
+  cg.style.transform = 'translateY(-8px) scale(1.04)';
+  cg.style.opacity = '1';
+  cg.style.boxShadow = '0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(123,30,40,0.2)';
+  cg.style.filter = 'brightness(1.15)';
+  cj.style.borderColor = 'rgba(196,169,91,0.12)';
+  cj.style.transform = 'scale(0.96)';
+  cj.style.opacity = '0.4';
+  cj.style.boxShadow = 'none';
+  cj.style.filter = 'brightness(0.6)';
+}
+
+      // checks
+      var ckj = document.getElementById('tmCheckJornada');
+      var ckg = document.getElementById('tmCheckGrimorio');
+      ckj.style.opacity = p==='jornada' ? '1' : '0';
+      ckj.style.transform = p==='jornada' ? 'scale(1)' : 'scale(0.5)';
+      ckg.style.opacity = p==='grimorio' ? '1' : '0';
+      ckg.style.transform = p==='grimorio' ? 'scale(1)' : 'scale(0.5)';
+
+      // divisores
+      var dj = document.getElementById('tmDivJornada');
+      var dg = document.getElementById('tmDivGrimorio');
+      dj.style.width = p==='jornada' ? '44px' : '28px';
+      dj.style.background = p==='jornada' ? 'rgba(196,169,91,0.7)' : 'rgba(196,169,91,0.3)';
+      dg.style.width = p==='grimorio' ? '44px' : '28px';
+      dg.style.background = p==='grimorio' ? 'rgba(123,30,40,0.7)' : 'rgba(123,30,40,0.3)';
+
+      // fundos
+      document.getElementById('tmBgJornada').style.opacity  = p==='jornada'  ? '1' : '0';
+      document.getElementById('tmBgGrimorio').style.opacity = p==='grimorio' ? '1' : '0';
+
+      // descrição
+      var desc = { jornada: 'Enfrente os perigos, gerencie sua ficha e leve a batalha adiante. A aventura aguarda além do horizonte.', grimorio: 'Narre, controle e molde o destino dos heróis. O mundo obedece à sua vontade — cada palavra é lei.' };
+      var icon = { jornada: '', grimorio: '' };
+      var panel = document.getElementById('tmDesc');
+      panel.style.opacity = '0';
+      setTimeout(function() {
+        panel.innerHTML = '<div style="font-size:18px;margin-bottom:4px;">'+icon[p]+'</div><p style="font-size:13px;line-height:1.55;color:#9A8A70;max-width:280px;margin:0 auto;">'+desc[p]+'</p>';
+        panel.style.opacity = '1';
+      }, 150);
+
+      // botão
+      var btn = document.getElementById('tmBtnEntrar');
+      btn.disabled = false;
+      btn.style.cursor = 'pointer';
+      if (p === 'jornada') {
+        btn.style.background = 'linear-gradient(135deg,#E8CC80,#C4A95B,#A88D42)';
+        btn.style.color = '#1a0e05';
+        btn.style.border = '1px solid #C4A95B';
+        btn.style.boxShadow = '0 6px 32px rgba(196,169,91,0.45)';
+      } else {
+        btn.style.background = 'linear-gradient(135deg,#e05050,#7B1E28,#5A1520)';
+        btn.style.color = '#F8F4E3';
+        btn.style.border = '1px solid rgba(123,30,40,0.6)';
+        btn.style.boxShadow = '0 6px 32px rgba(123,30,40,0.5)';
+      }
+    }
+    function tmConfirm() {
+      if (!tmSelected) return;
+      tmSelected === 'jornada' ? entrarModoJogadorAnimado() : entrarModoMestreAnimado();
+    }
+  </script>
+
+</div>
+
+<div id="telaCampanhasMaster" class="master-page tela-campanhas-master" style="display:none;">
+  <div class="simbolos-bg"></div>
+
+  <button class="voltar" onclick="voltarTelaModo()">← Voltar</button>
+
+  <header class="master-header">
+    <div class="grimorio-logo-topo">
+  <div class="grimorio-logo-area">
+    <img src="img/logo-grimorio-nova.png" class="logo-grimorio-nova">
+    <div class="grimorio-texto-logo">
+      <span class="grimorio-branco">Grimório</span>
+      <div class="igneo-linha">
+        <div class="linha-ornamento"></div>
+        <span class="grimorio-vermelho">Ígneo</span>
+        <div class="linha-ornamento"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    <h2>Campanhas</h2>
+    <p>Organize suas mesas separadamente.</p>
+  </header>
+
+  <section class="master-form-box campanha-toggle">
+    <h3 onclick="toggleSecao('boxCriarCampanha', this)">
+      Criar campanha <span class="setinha">▼</span>
+    </h3>
+
+    <div id="boxCriarCampanha" class="conteudo-toggle aberto">
+      <input id="novaCampanhaNome" placeholder="Nome da campanha">
+      <input id="novaCampanhaSistema" placeholder="Sistema usado">
+
+      <textarea
+        id="novaCampanhaDescricao"
+        placeholder="Descrição breve da campanha"
+      ></textarea>
+
+      <label class="master-upload">
+  Escolher imagem da campanha
+  <input
+    id="campanhaImagemInput"
+    type="file"
+    accept="image/*"
+    onchange="previewImagemCampanha()"
+  >
+</label>
+
+<img
+  id="previewCampanha"
+  class="preview-monstro"
+  src=""
+  alt="Preview da campanha"
+  style="display:none;"
+>
+
+
+      <button class="btn-master-principal" onclick="criarCampanhaMaster()">
+        + Criar campanha
+      </button>
+    </div>
+  </section>
+
+  <div id="listaCampanhasMaster" class="lista-campanhas"></div>
+</div>
+
+<!-- ================= GRIMÓRIO ÍGNEO ================= -->
+<div id="masterIgnea" class="container master-page" style="display:none;">
+    <div class="simbolos-bg"></div>
+   <header class="master-header-mini">
+  <button class="voltar btn-voltar-modos" onclick="voltarCampanhasMaster()">← Campanhas</button>
+</header>
+
+<div class="grimorio-logo-topo">
+  <div class="grimorio-logo-area">
+    <img src="img/logo-grimorio-nova.png" class="logo-grimorio-nova">
+    <div class="grimorio-texto-logo">
+      <span class="grimorio-branco">Grimório</span>
+      <div class="igneo-linha">
+        <div class="linha-ornamento"></div>
+        <span class="grimorio-vermelho">Ígneo</span>
+        <div class="linha-ornamento"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="master-tabs">
+  <button class="master-tab-btn active" title="Lore" onclick="trocarAbaMaster('lore', this)">
+    <span class="tab-icone"><i class="ti ti-book"></i></span><span class="tab-label">Lore</span>
+  </button>
+  <button class="master-tab-btn" title="Mundo" onclick="trocarAbaMaster('mundo', this)">
+    <span class="tab-icone"><i class="ti ti-world"></i></span><span class="tab-label">Mundo</span>
+  </button>
+  <button class="master-tab-btn" title="Compêndio" onclick="trocarAbaMaster('compendio', this)">
+    <span class="tab-icone"><i class="ti ti-skull"></i></span><span class="tab-label">Compêndio</span>
+  </button>
+  <button class="master-tab-btn" title="Criar" onclick="trocarAbaMaster('criar', this)">
+    <span class="tab-icone"><i class="ti ti-flame"></i></span><span class="tab-label">Criar</span>
+  </button>
+  <button class="master-tab-btn" title="Combate" onclick="trocarAbaMaster('combateMaster', this)">
+    <span class="tab-icone"><i class="ti ti-swords"></i></span><span class="tab-label">Combate</span>
+  </button>
+</div>
+
+<!-- ================= LORE ================= -->
+<section id="abaMaster-lore" class="master-aba active">
+
+  <div class="lore-header">
+    <h2 class="lore-titulo">Lore</h2>
+    <p class="master-desc">História, sessões e eventos da campanha.</p>
+  </div>
+
+  <!-- MINI-ABAS -->
+  <div class="mundo-tabs">
+    <button class="mundo-tab-btn active" onclick="trocarAbaLore('historia', this)">História</button>
+    <button class="mundo-tab-btn" onclick="trocarAbaLore('sessoes', this)">Sessões</button>
+    <button class="mundo-tab-btn" onclick="trocarAbaLore('eventos', this)">Eventos</button>
+  </div>
+
+  <!-- HISTÓRIA -->
+  <div id="loreSecaoHistoria" class="mundo-secao" style="display:block;">
+    <textarea id="historiaPrincipalLore" class="textarea-lore-grande"
+      placeholder="Lore principal da campanha, guerras, profecias, deuses, eras..."
+      oninput="salvarHistoriaPrincipalLore()"></textarea>
+  </div>
+
+  <!-- SESSÕES -->
+  <div id="loreSecaoSessoes" class="mundo-secao" style="display:none;">
+    <div class="secao-toggle" style="margin-bottom:12px;">
+      <h3 class="titulo-toggle" onclick="toggleSecao('boxLoreSessoes', this)">
+        <span>+ Nova Sessão</span><span class="setinha">▼</span>
+      </h3>
+      <div id="boxLoreSessoes" class="conteudo-toggle">
+        <div class="lore-form-inline">
+          <input id="sessaoNome" placeholder="Nome da sessão">
+          <select id="sessaoStatus">
+            <option value="planejada">🟡 Planejada</option>
+            <option value="completa">✅ Completa</option>
+            <option value="cancelada">❌ Cancelada</option>
+          </select>
+          <textarea id="sessaoDescricao" placeholder="Resumo, acontecimentos, decisões, mortes, loot..."></textarea>
+          <button class="btn-master-principal" onclick="salvarSessaoLore()">+ Salvar sessão</button>
+        </div>
+      </div>
+    </div>
+    <div id="listaSessoesLore" class="lista-lore-sempre-visivel"></div>
+  </div>
+
+  <!-- EVENTOS -->
+  <div id="loreSecaoEventos" class="mundo-secao" style="display:none;">
+    <div class="secao-toggle" style="margin-bottom:12px;">
+      <h3 class="titulo-toggle" onclick="toggleSecao('boxLoreEventos', this)">
+        <span>+ Novo Evento</span><span class="setinha">▼</span>
+      </h3>
+      <div id="boxLoreEventos" class="conteudo-toggle">
+        <div class="lore-form-inline">
+          <input id="eventoNome" placeholder="Nome do evento">
+          <select id="eventoTipo">
+            <option value="batalha">⚔️ Batalha</option>
+            <option value="revelacao">🔍 Revelação</option>
+            <option value="morte">💀 Morte</option>
+            <option value="alianca">🤝 Aliança</option>
+            <option value="outro">📌 Outro</option>
+          </select>
+          <textarea id="eventoDescricao" placeholder="Detalhe o evento..."></textarea>
+          <button class="btn-master-principal" onclick="salvarEventoLore()">+ Salvar evento</button>
+        </div>
+      </div>
+    </div>
+    <div id="listaEventosLore" class="lista-lore-sempre-visivel"></div>
+  </div>
+
+</section>
+
+<!-- ================= MUNDO ================= -->
+<section id="abaMaster-mundo" class="master-aba" style="display:none;">
+
+  <div class="lore-header">
+    <h2 class="lore-titulo"> Mundo</h2>
+    <p class="master-desc">Missões, NPCs e encontros da campanha.</p>
+  </div>
+
+  <!-- MINI-ABAS -->
+<div class="mundo-tabs">
+  <button class="mundo-tab-btn active" onclick="trocarAbaMundo('missoes', this)">Missões</button>
+  <button class="mundo-tab-btn" onclick="trocarAbaMundo('npcs', this)"> NPCs</button>
+  <button class="mundo-tab-btn" onclick="trocarAbaMundo('encontros', this)"> Encontros</button>
+
+</div>
+
+  <!-- MISSÕES -->
+  <div id="mundoSecaoMissoes" class="mundo-secao">
+    <div class="lore-form-inline" style="margin-bottom:16px;">
+      <input id="mundoMissaoNome" placeholder="Nome da missão">
+      <select id="mundoMissaoPrioridade">
+        <option value="andamento">🟡 Em andamento</option>
+        <option value="concluida">✅ Concluída</option>
+        <option value="abandonada">❌ Abandonada</option>
+      </select>
+      <select id="mundoMissaoDificuldade">
+        <option value="facil">🟢 Fácil</option>
+        <option value="medio">🟡 Médio</option>
+        <option value="dificil">🔴 Difícil</option>
+        <option value="epico">💀 Épico</option>
+      </select>
+      <div id="mundoMissaoEtapasWrapper">
+        <div id="mundoMissaoEtapasList"></div>
+        <div style="display:flex;gap:8px;margin-top:6px;">
+          <input id="mundoMissaoNovaEtapa" placeholder="Nome da etapa...">
+          <button type="button" class="btn-master-principal" style="width:auto;white-space:nowrap;padding:8px 12px;" onclick="adicionarEtapaForm()">+ Etapa</button>
+        </div>
+      </div>
+      <textarea id="mundoMissaoDesc" placeholder="Objetivo, envolvidos, recompensa..."></textarea>
+      <button class="btn-master-principal" onclick="salvarMissaoMundo()">+ Adicionar Missão</button>
+    </div>
+    <div id="mundoMissaoLista"></div>
+  </div>
+
+  <!-- NPCs -->
+  <div id="mundoSecaoNpcs" class="mundo-secao" style="display:none;">
+    <div id="mundoNPCLista"></div>
+  </div>
+
+  <!-- ENCONTROS -->
+<div id="mundoSecaoEncontros" class="mundo-secao" style="display:none;">
+  <div id="mundoEncontroLista"></div>
+</div>
+
+</section>
+
+  <!-- ================= COMPÊNDIO ================= -->
+<section id="abaMaster-compendio" class="master-aba" style="display:none;">
+
+<h2 class="Compendio-titulo">Compendio</h2>
+<p class="master-desc">
+  Todos os monstros criados aparecem aqui.
+</p>
+
+    <div class="compendio-controles">
+  <input
+    id="pesquisaMonstro"
+    type="text"
+    placeholder="🔎 Pesquisar monstro..."
+    oninput="renderMonstrosMestre()"
+  >
+
+  <select id="ordenarMonstros" onchange="renderMonstrosMestre()">
+    <option value="az">A - Z</option>
+    <option value="za">Z - A</option>
+    <option value="hpMaior">HP maior</option>
+    <option value="hpMenor">HP menor</option>
+    <option value="caMaior">CA maior</option>
+    <option value="caMenor">CA menor</option>
+  </select>
+</div>
+
+    <div id="listaMonstrosMestre" class="compendio-grid"></div>
+  </section>
+
+<section id="abaMaster-criar" class="master-aba" style="display:none;">
+
+  <div class="lore-header">
+    <h2 class="lore-titulo"> Forjar</h2>
+    <p class="master-desc">Escolha o que deseja criar para sua campanha.</p>
+  </div>
+
+  <!-- SELETOR DE TIPO -->
+  <div class="criar-tipo-grid">
+  <button class="criar-tipo-btn active" onclick="trocarTipoCriar('monstro', this)">
+   <span>Monstro</span>
+  </button>
+  <button class="criar-tipo-btn" onclick="trocarTipoCriar('boss', this)">
+    <span>Boss</span>
+  </button>
+  <button class="criar-tipo-btn" onclick="trocarTipoCriar('npc', this)">
+    <span>NPC</span>
+  </button>
+  <button class="criar-tipo-btn" onclick="trocarTipoCriar('item', this)">
+    <span>Item</span>
+  </button>
+  <button class="criar-tipo-btn" onclick="trocarTipoCriar('encontro', this)">
+  <span>Encontro</span>
+  </button>
+</div>
+
+  <!-- FORMULÁRIOS -->
+
+  <!-- ===== MONSTRO ===== -->
+  <div id="criarForm-monstro" class="criar-form-panel">
+    <div class="criar-form-titulo">Criar Monstro</div>
+    <div class="form-master-limpo">
+      <input id="monstroNome" placeholder="Nome">
+      <div class="criar-campos-duplos">
+        <input id="monstroTipo" placeholder="Tipo / Classe">
+        <input id="monstroRegiao" placeholder="Região">
+      </div>
+      <div class="criar-campos-duplos">
+        <input id="monstroIdade" placeholder="Idade">
+        <input id="monstroLocalizacao" placeholder="Localização">
+      </div>
+      <input id="monstroPontoEncontro" placeholder="Ponto de encontro">
+      <div class="criar-hp-ca">
+        <div><label>HP Máx</label><input id="monstroHpMax" type="number" value="10"></div>
+        <div><label>HP Atual</label><input id="monstroHpAtual" type="number" value="10"></div>
+        <div><label>CA</label><input id="monstroCa" type="number" value="10"></div>
+      </div>
+      <div class="status-grid-master">
+        <div class="status-attr"><label>FOR</label><input id="monstroFor" type="number" value="10" oninput="atualizarModsMaster('monstro')"><span id="monstroModFor">+0</span></div>
+        <div class="status-attr"><label>DES</label><input id="monstroDes" type="number" value="10" oninput="atualizarModsMaster('monstro')"><span id="monstroModDes">+0</span></div>
+        <div class="status-attr"><label>CON</label><input id="monstroCon" type="number" value="10" oninput="atualizarModsMaster('monstro')"><span id="monstroModCon">+0</span></div>
+        <div class="status-attr"><label>INT</label><input id="monstroInt" type="number" value="10" oninput="atualizarModsMaster('monstro')"><span id="monstroModInt">+0</span></div>
+        <div class="status-attr"><label>SAB</label><input id="monstroSab" type="number" value="10" oninput="atualizarModsMaster('monstro')"><span id="monstroModSab">+0</span></div>
+        <div class="status-attr"><label>CAR</label><input id="monstroCar" type="number" value="10" oninput="atualizarModsMaster('monstro')"><span id="monstroModCar">+0</span></div>
+      </div>
+      <textarea id="monstroLore" placeholder="Lore / história"></textarea>
+
+      <!-- HABILIDADES -->
+      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Habilidades Especiais</div>
+      <div id="monstroHabilidadesList" style="margin-bottom:6px;"></div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <input id="monstroHabilidadeNome" placeholder="Nome (ex: Regeneração)" style="flex:1;">
+        <input id="monstroHabilidadeDesc" placeholder="Descrição (ex: recupera 10 HP)" style="flex:2;">
+        <button type="button" onclick="adicionarHabilidadeMonstro()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 12px;cursor:pointer;font-size:18px;flex-shrink:0;">+</button>
+      </div>
+      <input type="hidden" id="monstroHabilidades">
+
+      <!-- ATAQUES -->
+      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Ataques</div>
+      <div id="monstroAtaquesList" style="margin-bottom:6px;"></div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <input id="monstroAtaqueNome" placeholder="Nome (ex: Garra)" style="flex:1;">
+        <input id="monstroAtaqueDesc" placeholder="Descrição (ex: +5, 2d6+4 cortante)" style="flex:2;">
+        <button type="button" onclick="adicionarAtaqueMonstro()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 12px;cursor:pointer;font-size:18px;flex-shrink:0;">+</button>
+      </div>
+      <input type="hidden" id="monstroAtaques">
+
+      <textarea id="monstroReacoes" placeholder="Reações (ex: Aparar — reduz 1d6+2 de dano)"></textarea>
+      <textarea id="monstroResistencias" placeholder="Resistências / Imunidades / Vulnerabilidades"></textarea>
+      <textarea id="monstroDialogos" placeholder="Diálogos (um por linha)"></textarea>
+      <label class="master-upload">📷 Imagem do monstro<input id="monstroImagemInput" type="file" accept="image/*" onchange="previewImagemMonstro()"></label>
+      <img id="previewMonstro" class="preview-monstro" src="" style="display:none;">
+      <button class="btn-master-principal" onclick="salvarMonstroMestre()">⚡ Salvar Monstro</button>
+    </div>
+  </div>
+
+  <!-- ===== BOSS ===== -->
+  <div id="criarForm-boss" class="criar-form-panel" style="display:none;">
+    <div class="criar-form-titulo">Criar Boss</div>
+    <div class="form-master-limpo">
+      <input id="bossNome" placeholder="Nome">
+      <input id="bossTitulo" placeholder="Título / Epíteto">
+      <div class="criar-campos-duplos">
+        <input id="bossTipo" placeholder="Tipo / Classe">
+        <input id="bossRegiao" placeholder="Região">
+      </div>
+      <div class="criar-campos-duplos">
+        <input id="bossIdade" placeholder="Idade">
+        <input id="bossLocalizacao" placeholder="Localização">
+      </div>
+      <div class="criar-hp-ca">
+        <div><label>HP Máx</label><input id="bossHpMax" type="number" value="100"></div>
+        <div><label>HP Atual</label><input id="bossHpAtual" type="number" value="100"></div>
+        <div><label>CA</label><input id="bossCa" type="number" value="15"></div>
+      </div>
+      <div class="status-grid-master">
+        <div class="status-attr"><label>FOR</label><input id="bossFor" type="number" value="10" oninput="atualizarModsMaster('boss')"><span id="bossModFor">+0</span></div>
+        <div class="status-attr"><label>DES</label><input id="bossDes" type="number" value="10" oninput="atualizarModsMaster('boss')"><span id="bossModDes">+0</span></div>
+        <div class="status-attr"><label>CON</label><input id="bossCon" type="number" value="10" oninput="atualizarModsMaster('boss')"><span id="bossModCon">+0</span></div>
+        <div class="status-attr"><label>INT</label><input id="bossInt" type="number" value="10" oninput="atualizarModsMaster('boss')"><span id="bossModInt">+0</span></div>
+        <div class="status-attr"><label>SAB</label><input id="bossSab" type="number" value="10" oninput="atualizarModsMaster('boss')"><span id="bossModSab">+0</span></div>
+        <div class="status-attr"><label>CAR</label><input id="bossCar" type="number" value="10" oninput="atualizarModsMaster('boss')"><span id="bossModCar">+0</span></div>
+      </div>
+      <textarea id="bossLore" placeholder="Lore / história"></textarea>
+      <textarea id="bossFases" placeholder="Fases (ex: Fase 1 — 100% HP...)"></textarea>
+      <textarea id="bossMecanicas" placeholder="Mecânicas especiais"></textarea>
+
+      <!-- HABILIDADES BOSS -->
+      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Habilidades Especiais</div>
+      <div id="bossHabilidadesList" style="margin-bottom:6px;"></div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <input id="bossHabilidadeNome" placeholder="Nome" style="flex:1;">
+        <input id="bossHabilidadeDesc" placeholder="Descrição" style="flex:2;">
+        <button type="button" onclick="adicionarHabilidadeBoss()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:bold;flex-shrink:0;">+</button>
+      </div>
+      <input type="hidden" id="bossHabilidades">
+
+      <!-- ATAQUES BOSS -->
+      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Ataques</div>
+      <div id="bossAtaquesList" style="margin-bottom:6px;"></div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <input id="bossAtaqueNome" placeholder="Nome" style="flex:1;">
+        <input id="bossAtaqueDesc" placeholder="Descrição" style="flex:2;">
+        <button type="button" onclick="adicionarAtaqueBoss()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:bold;flex-shrink:0;">+</button>
+      </div>
+      <input type="hidden" id="bossAtaques">
+
+      <textarea id="bossFraquezas" placeholder="Fraquezas"></textarea>
+      <textarea id="bossReacoes" placeholder="Reações lendárias"></textarea>
+      <textarea id="bossResistencias" placeholder="Resistências / Imunidades / Vulnerabilidades"></textarea>
+      <input id="bossPontoEncontro" placeholder="Ponto de encontro">
+      <label class="master-upload" style="display:block; margin-bottom:8px;">📷 Imagem do boss<input id="bossImagemInput" type="file" accept="image/*" onchange="previewImagemBoss()"></label>
+      <img id="previewBoss" class="preview-monstro" src="" style="display:none;">
+      <button class="btn-master-principal" onclick="salvarBossMestre()">⚡ Salvar Boss</button>
+    </div>
+  </div>
+
+  <!-- ===== NPC ===== -->
+  <div id="criarForm-npc" class="criar-form-panel" style="display:none;">
+    <div class="criar-form-titulo">Criar NPC</div>
+    <div class="form-master-limpo">
+      <input id="npcNome" placeholder="Nome">
+      <div class="criar-campos-duplos">
+        <input id="npcRaca" placeholder="Raça">
+        <input id="npcClasse" placeholder="Classe / Profissão">
+      </div>
+      <div class="criar-campos-duplos">
+        <input id="npcIdade" placeholder="Idade">
+        <input id="npcReligiao" placeholder="Religião">
+      </div>
+      <div class="criar-campos-duplos">
+        <input id="npcRegiao" placeholder="Região">
+        <input id="npcLocalizacao" placeholder="Localização">
+      </div>
+      <div class="status-grid-master">
+        <div class="status-attr"><label>FOR</label><input id="npcFor" type="number" value="10" oninput="atualizarModsMaster('npc')"><span id="npcModFor">+0</span></div>
+        <div class="status-attr"><label>DES</label><input id="npcDes" type="number" value="10" oninput="atualizarModsMaster('npc')"><span id="npcModDes">+0</span></div>
+        <div class="status-attr"><label>CON</label><input id="npcCon" type="number" value="10" oninput="atualizarModsMaster('npc')"><span id="npcModCon">+0</span></div>
+        <div class="status-attr"><label>INT</label><input id="npcInt" type="number" value="10" oninput="atualizarModsMaster('npc')"><span id="npcModInt">+0</span></div>
+        <div class="status-attr"><label>SAB</label><input id="npcSab" type="number" value="10" oninput="atualizarModsMaster('npc')"><span id="npcModSab">+0</span></div>
+        <div class="status-attr"><label>CAR</label><input id="npcCar" type="number" value="10" oninput="atualizarModsMaster('npc')"><span id="npcModCar">+0</span></div>
+      </div>
+      <textarea id="npcPericias" placeholder="Perícias"></textarea>
+      <textarea id="npcPersonalidade" placeholder="Personalidade (bordão, trejeitos, voz...)"></textarea>
+      <textarea id="npcRelacoes" placeholder="Relações com outros personagens"></textarea>
+      <textarea id="npcSegredo" placeholder="Segredo (o que esconde dos jogadores)"></textarea>
+      <textarea id="npcObservacoes" placeholder="Observações do mestre"></textarea>
+
+      <!-- COMBATE -->
+      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Dados de Combate</div>
+      <div class="criar-campos-duplos">
+        <input id="npcHpMax" type="number" placeholder="HP Máximo" value="20">
+        <input id="npcCa" type="number" placeholder="CA" value="10">
+      </div>
+      <div class="criar-campos-duplos">
+        <input id="npcVelocidade" placeholder="Velocidade (ex: 9m)">
+        <input id="npcDesafio" placeholder="Nível de Desafio (ND)">
+      </div>
+
+      <!-- HABILIDADES NPC -->
+      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Habilidades Especiais</div>
+      <div id="npcHabilidadesList" style="margin-bottom:6px;"></div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <input id="npcHabilidadeNome" placeholder="Nome" style="flex:1;">
+        <input id="npcHabilidadeDesc" placeholder="Descrição" style="flex:2;">
+        <button type="button" onclick="adicionarHabilidadeNpc()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:bold;flex-shrink:0;">+</button>
+      </div>
+      <input type="hidden" id="npcHabilidades">
+
+      <!-- ATAQUES NPC -->
+      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Ações de Combate</div>
+      <div id="npcAcoesList" style="margin-bottom:6px;"></div>
+      <div style="display:flex;gap:6px;margin-bottom:10px;">
+        <input id="npcAcaoNome" placeholder="Nome" style="flex:1;">
+        <input id="npcAcaoDesc" placeholder="Descrição" style="flex:2;">
+        <button type="button" onclick="adicionarAcaoNpc()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:bold;flex-shrink:0;">+</button>
+      </div>
+      <input type="hidden" id="npcAcoes">
+
+      <textarea id="npcReacoes" placeholder="Reações (ex: Aparar — reduz 1d6+2 de dano)"></textarea>
+      <textarea id="npcResistencias" placeholder="Resistências / Imunidades / Vulnerabilidades"></textarea>
+
+      <label class="master-upload" style="display:block; margin-bottom:8px;">📷 Imagem do NPC<input id="npcImagemInput" type="file" accept="image/*" onchange="previewImagemNpc()"></label>
+      <img id="previewNPC" class="preview-monstro" src="" style="display:none;">
+      <button class="btn-master-principal" onclick="salvarNPCMestre()">⚡ Salvar NPC</button>
+    </div>
+  </div>
+
+  <!-- ===== ITEM ===== -->
+  <div id="criarForm-item" class="criar-form-panel" style="display:none;">
+    <div class="criar-form-titulo">Criar Item</div>
+    <div class="form-master-limpo">
+      <input id="itemMasterNome" placeholder="Nome do item">
+      <div class="criar-campos-duplos">
+        <input id="itemMasterTipo" placeholder="Tipo (arma, armadura...)">
+        <select id="itemMasterRaridade">
+          <option value="normal">Normal</option>
+          <option value="incomum">Incomum</option>
+          <option value="raro">Raro</option>
+          <option value="reliquia">Relíquia</option>
+        </select>
+      </div>
+      <select id="itemMasterSintonia">
+        <option value="nao">Sem sintonização</option>
+        <option value="sim">Requer sintonização</option>
+      </select>
+      <textarea id="itemMasterEfeito" placeholder="Efeito / habilidade"></textarea>
+      <textarea id="itemMasterDescricao" placeholder="Descrição visual"></textarea>
+      <textarea id="itemMasterHistoria" placeholder="História do item"></textarea>
+      <textarea id="itemMasterOrigem" placeholder="Origem / onde encontrar"></textarea>
+      <label class="master-upload" style="display:block; margin-bottom:8px;">📷 Imagem do item<input id="itemMasterImagemInput" type="file" accept="image/*" onchange="previewImagemItem()"></label>
+      <img id="previewItemMaster" class="preview-monstro" src="" style="display:none;">
+      <button class="btn-master-principal" onclick="salvarItemMestre()">⚡ Salvar Item</button>
+    </div>
+  </div>
+
+  <!-- ===== ENCONTRO ===== -->
+  <div id="criarForm-encontro" class="criar-form-panel" style="display:none;">
+    <div class="criar-form-titulo">Criar Encontro</div>
+    <div class="form-master-limpo">
+      <input id="encontroNome" placeholder="Nome do encontro" autocomplete="off">
+      <div class="criar-campos-duplos">
+        <input id="mundoEncontroRegiao" placeholder="Região" autocomplete="off">
+        <input id="encontroLocalizacao" placeholder="Localização">
+      </div>
+      <div class="criar-dificuldade-grid">
+        <button type="button" class="criar-dif-btn dif-facil"    onclick="selecionarDificuldade('facil', this)">Fácil</button>
+        <button type="button" class="criar-dif-btn dif-medio"    onclick="selecionarDificuldade('medio', this)">Médio</button>
+        <button type="button" class="criar-dif-btn dif-dificil"  onclick="selecionarDificuldade('dificil', this)">Difícil</button>
+        <button type="button" class="criar-dif-btn dif-lendario" onclick="selecionarDificuldade('lendario', this)">Lendário</button>
+      </div>
+      <input type="hidden" id="encontroDificuldade" value="">
+      <textarea id="encontroEnvolvidos" placeholder="Quem está envolvido (NPCs, monstros, facções...)"></textarea>
+      <textarea id="encontroObjetivo" placeholder="Objetivo da cena"></textarea>
+      <textarea id="encontroGatilho" placeholder="Gatilho do encontro"></textarea>
+      <textarea id="encontroAmbiente" placeholder="Clima / ambiente"></textarea>
+      <textarea id="encontroConsequencias" placeholder="Consequências possíveis"></textarea>
+      <textarea id="encontroLoot" placeholder="Loot / recompensa"></textarea>
+      <textarea id="encontroNotas" placeholder="Anotações do mestre"></textarea>
+      <label class="master-upload" style="display:block; margin-bottom:8px;">📷 Imagem do encontro<input id="encontroImagemInput" type="file" accept="image/*" onchange="previewImagemEncontro()"></label>
+      <img id="previewEncontro" class="preview-monstro" src="" style="display:none;">
+      <button class="btn-master-principal" onclick="salvarEncontroMundo()">⚡ Salvar Encontro</button>
+    </div>
+  </div>
+
+</section>
+ 
+
+  <!-- ================= COMBATE MASTER ================= -->
+  <section id="abaMaster-combateMaster" class="master-aba" style="display:none;">
+  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+    <div>
+      <h3 class="titulo-secao" style="margin:0;">Combate</h3>
+      <p class="master-desc" style="margin:0;">Envie monstros do compêndio para organizar a sessão.</p>
+    </div>
+    <button class="btn-iniciativa-abrir" onclick="abrirPainelIniciativa()">☰</button>
+  </div>
+  <div id="listaCombateMestre" class="combate-master-lista"></div>
+</section>
+</div>
+
+<!-- PAINEL INICIATIVA -->
+<div id="painelIniciativaOverlay" class="iniciativa-overlay" style="display:none;" onclick="fecharPainelIniciativa()"></div>
+<div id="painelIniciativa" class="iniciativa-painel" style="display:none;">
+  <div class="iniciativa-header">
+    <span class="iniciativa-titulo">Iniciativa</span>
+    <button onclick="fecharPainelIniciativa()" class="iniciativa-fechar">✕</button>
+  </div>
+  <div id="iniciativaLista"></div>
+  <button class="btn-master-principal" style="width:100%;margin-top:12px;" onclick="proximoTurno()">
+    Próximo turno
+  </button>
+</div>
+
+<!-- ================= SHEET DE DETALHES DO MONSTRO ================= -->
+<div id="sheetMonstroOverlay" class="sheet-monstro-overlay" style="display:none;" onclick="fecharSheetMonstro()"></div>
+
+<div id="sheetMonstro" class="sheet-monstro" style="display:none;">
+  <div class="sheet-handle" onclick="alternarSheetFull()"></div>
+  <div id="conteudoSheetMonstro"></div>
+</div>
+
+  <div id="tela-inicial" class="container" style="display:none;">
+  <button class="btn-voltar-modos" onclick="abrirTelaModo()">← Voltar</button>
+
+  <h2 class="titulo-secao">Selecionar Personagem</h2>
+  <div class="grid-personagens" id="listaPersonagens"></div>
+
+  <div class="acoes-ficha-fixas">
+    <button class="btn-acao-ficha" onclick="ativarModoExportacao()">
+      📤 Exportar
+    </button>
+    <button class="btn-acao-ficha" onclick="abrirImportacao()">
+      📂 Importar
+    </button>
+    <input
+      type="file"
+      id="importarFicha"
+      accept=".json"
+      style="display: none"
+    />
+  </div>
+</div>
+
+    <!-- ================= FICHA ================= -->
+    <div class="container" id="ficha" style="display: none">
+      <!-- ABAS -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="trocarAba('personagem', this)">
+          👤<span class="tab-label">Personagem</span>
+        </button>
+        <button class="tab-btn" onclick="trocarAba('atributos', this)">
+          📊<span class="tab-label">Atributos</span>
+        </button>
+        <button class="tab-btn" onclick="trocarAba('combate', this)">⚔️<span class="tab-label">Combate</span></button>
+        <button class="tab-btn" onclick="trocarAba('inventario', this)">
+          🎒<span class="tab-label">Inventário</span>
+        </button>
+        <button class="tab-btn" onclick="trocarAba('poderes', this)">🔥<span class="tab-label">Poderes</span></button>
+      </div>
+
+      <!-- ================= PERSONAGEM ================= -->
+      <div class="aba" id="personagem">
+        <button class="voltar" onclick="voltarInicio()">← Voltar</button>
+
+        <div class="personagem-topo">
+          <!-- CAMPOS -->
+          <div class="personagem-campos">
+            <input class="input-personagem" id="classe" placeholder="Classe" />
+            <input id="nome" placeholder="Nome" />
+
+            <!-- 🔥 RAÇA (AGORA DROPDOWN) -->
+            <div class="select-wrapper">
+              <select id="racaSelect" onchange="aoMudarRaca()">
+                <option value="" selected>Selecionar raça</option>
+                <option value="custom">Raças personalizadas</option>
+                <option value="humano">Humano</option>
+                <option value="elfo">Elfo</option>
+                <option value="anao">Anão</option>
+                <option value="halfling">Halfling</option>
+                <option value="meio_elfo">Meio-Elfo</option>
+                <option value="meio_orc">Meio-Orc</option>
+                <option value="draconato">Draconato</option>
+                <option value="tiefling">Tiefling</option>
+                <option value="gnomo">Gnomo</option>
+                <option value="tritao">Tritão</option>
+              </select>
+            </div>
+
+            <input id="idade" placeholder="Idade" />
+            <input id="altura" placeholder="Altura" />
+
+            <div class="linha-nivel-antecedente">
+              <input
+                id="nivel"
+                type="number"
+                min="1"
+                max="20"
+                placeholder="Nível"
+              />
+              <input id="antecedentes" placeholder="Antecedentes" />
+            </div>
+          </div>
+
+          <!-- IMAGEM -->
+          <div class="personagem-imagem-box">
+            <img id="preview" src="" alt="Preview do personagem" />
+
+            <div class="upload-imagem personagem-upload">
+              <button
+                type="button"
+                onclick="abrirEditorImagem()"
+                class="botao-upload"
+              >
+                Ajustar imagem
+              </button>
+
+              <label for="imagem" class="botao-upload"> Escolher imagem </label>
+
+              <input
+                type="file"
+                id="imagem"
+                accept="image/*"
+                onchange="previewImagem()"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- 🔥 IDIOMAS -->
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxIdiomas', this)"
+          >
+            <span>Idiomas</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+          <div id="boxIdiomas" class="conteudo-toggle aberto">
+            <textarea id="idiomas" placeholder="Idiomas"></textarea>
+          </div>
+        </div>
+
+        <!-- 🔥 ALIADOS -->
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxAliadosForm', this)"
+          >
+            <span>Aliados</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+          <div id="boxAliadosForm" class="conteudo-toggle aberto">
+            <div class="inv-add">
+              <input id="aliadoNome" placeholder="Nome do aliado" />
+              <textarea
+                id="aliadoDesc"
+                placeholder="Descrição do aliado"
+              ></textarea>
+              <input id="aliadoLocal" placeholder="Região / Local" />
+            </div>
+
+            <div class="add-linha">
+              <button class="inv-add-btn" onclick="adicionarAliado()">+</button>
+            </div>
+          </div>
+
+          <ul id="listaAliados" class="lista-sempre-visivel"></ul>
+        </div>
+      </div>
+
+      <!-- ================= EDITOR DE IMAGEM (GLOBAL) ================= -->
+      <div id="editorImagemInline" class="editor-inline fechado">
+  <div class="editor-container">
+    <div class="editor-viewport">
+      <canvas id="editorCanvas"></canvas>
+      <div class="editor-mascara-circular"></div>
+    </div>
+
+    <div class="editor-slider-row">
+      <span class="editor-zoom-icon">−</span>
+      <input type="range" id="editorZoom" min="0.5" max="3" step="0.01" value="1" oninput="atualizarZoomEditor()" />
+      <span class="editor-zoom-icon">+</span>
+    </div>
+
+    <div class="editor-acoes">
+      <button type="button" class="editor-btn-secundario" onclick="fecharEditorImagem()">Cancelar</button>
+      <button type="button" class="editor-btn-principal" onclick="salvarEditorImagem()">Cortar foto</button>
+    </div>
+  </div>
+</div>
+
+      <!-- ================= ATRIBUTOS ================= -->
+      <div class="aba" id="atributos" style="display: none">
+        <div class="atributos-layout-novo">
+          <div class="atributos-e-prof">
+          <div class="atributos-compactos">
+            <div class="attr attr-compacto">
+              <span class="attr-sigla">FOR</span>
+              <div class="save-check" onclick="toggleSave('forca')"></div>
+              <input
+                id="forca"
+                type="number"
+                min="1"
+                max="20"
+                value="10"
+                oninput="
+                  limitarAtributo(this);
+                  atualizarTudo();
+                "
+              />
+              <div class="attr-final" id="final_forca">10</div>
+              <div class="attr-mod" id="mod_forca"></div>
+              <div class="save-badge" id="save_forca"></div>
+            </div>
+
+            <div class="attr attr-compacto">
+              <span class="attr-sigla">DES</span>
+              <div class="save-check" onclick="toggleSave('destreza')"></div>
+              <input
+                id="destreza"
+                type="number"
+                min="1"
+                max="20"
+                value="10"
+                oninput="
+                  limitarAtributo(this);
+                  atualizarTudo();
+                "
+              />
+              <div class="attr-final" id="final_destreza">10</div>
+              <div class="attr-mod" id="mod_destreza"></div>
+              <div class="save-badge" id="save_destreza"></div>
+            </div>
+
+            <div class="attr attr-compacto">
+              <span class="attr-sigla">CON</span>
+              <div
+                class="save-check"
+                onclick="toggleSave('constituicao')"
+              ></div>
+              <input
+                id="constituicao"
+                type="number"
+                min="1"
+                max="20"
+                value="10"
+                oninput="
+                  limitarAtributo(this);
+                  atualizarTudo();
+                "
+              />
+              <div class="attr-final" id="final_constituicao">10</div>
+              <div class="attr-mod" id="mod_constituicao"></div>
+              <div class="save-badge" id="save_constituicao"></div>
+            </div>
+
+            <div class="attr attr-compacto">
+              <span class="attr-sigla">INT</span>
+              <div
+                class="save-check"
+                onclick="toggleSave('inteligencia')"
+              ></div>
+              <input
+                id="inteligencia"
+                type="number"
+                min="1"
+                max="20"
+                value="10"
+                oninput="
+                  limitarAtributo(this);
+                  atualizarTudo();
+                "
+              />
+              <div class="attr-final" id="final_inteligencia">10</div>
+              <div class="attr-mod" id="mod_inteligencia"></div>
+              <div class="save-badge" id="save_inteligencia"></div>
+            </div>
+
+            <div class="attr attr-compacto">
+              <span class="attr-sigla">SAB</span>
+              <div class="save-check" onclick="toggleSave('sabedoria')"></div>
+              <input
+                id="sabedoria"
+                type="number"
+                min="1"
+                max="20"
+                value="10"
+                oninput="
+                  limitarAtributo(this);
+                  atualizarTudo();
+                "
+              />
+              <div class="attr-final" id="final_sabedoria">10</div>
+              <div class="attr-mod" id="mod_sabedoria"></div>
+              <div class="save-badge" id="save_sabedoria"></div>
+            </div>
+
+            <div class="attr attr-compacto">
+              <span class="attr-sigla">CAR</span>
+              <div class="save-check" onclick="toggleSave('carisma')"></div>
+              <input
+                id="carisma"
+                type="number"
+                min="1"
+                max="20"
+                value="10"
+                oninput="
+                  limitarAtributo(this);
+                  atualizarTudo();
+                "
+              />
+              <div class="attr-final" id="final_carisma">10</div>
+              <div class="attr-mod" id="mod_carisma"></div>
+              <div class="save-badge" id="save_carisma"></div>
+            </div>
+          </div>
+
+        <div class="proficiencias-secao">
+          <h2 class="titulo-secao">Proficiências</h2>
+          <textarea
+            id="proficienciasExtras"
+            oninput="salvarTudo()"
+            placeholder="Ex: armas marciais, armaduras leves, armaduras médias, escudos, ferramentas de ladrão, kit de herbalismo..."
+          ></textarea>
+        </div>
+          </div>
+
+          <div class="pericias pericias-scroll">
+            <div class="header-pericias">
+              <div class="header-pericias-topo">
+                <span>Perícias</span>
+
+                <div class="inspiracao-box">
+                  <label for="inspiracao">Inspiração</label>
+                  <input
+                    id="inspiracao"
+                    type="text"
+                    value="0"
+                    oninput="salvarTudo()"
+                  />
+                </div>
+              </div>
+
+              <div class="prof-box">
+                <label>Prof</label>
+                <input id="bonusProf" value="2" oninput="atualizarTudo()" />
+              </div>
+            </div>
+
+            <div id="pericias"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= COMBATE ================= -->
+      <div class="aba" id="combate" style="display: none">
+        <div class="hp-box">
+          <h2 class="titulo-secao">Vida</h2>
+
+          <div class="linha-status">
+            <div class="campo">
+              <label>HP MAX</label>
+              <input id="vidaMax" value="50" onchange="atualizarHP()" />
+            </div>
+
+            <div class="campo">
+              <label>CA</label>
+              <input id="ca" value="10" />
+            </div>
+
+            <div class="campo">
+              <label>DESLOC</label>
+              <input id="deslocamento" value="9" />
+            </div>
+          </div>
+
+          <div class="hp-bar" id="hpBar">
+            <div id="hp-fill"></div>
+
+            <div class="hp-overlay">
+              <button onclick="alterarVida(-1)">-</button>
+              <span id="vida-texto">50</span>
+              <button onclick="alterarVida(1)">+</button>
+            </div>
+          </div>
+
+          <div class="hp-temp-box">
+            <div class="hp-bar temp" id="tempBar">
+              <div id="temp-fill"></div>
+
+              <div class="hp-overlay">
+                <button onclick="alterarTemp(-1)">-</button>
+                <span id="temp-texto">0</span>
+                <button onclick="alterarTemp(1)">+</button>
+              </div>
+            </div>
+
+            <div class="hp-total" style="display: none">
+              Total: <span id="vida-total">0/0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxArmasForm', this)"
+          >
+            <span>Armas</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+          <div id="boxArmasForm" class="conteudo-toggle aberto">
+            <div class="arma-add">
+              <input id="armaNome" placeholder="Nome da arma" />
+              <input id="armaDano" placeholder="Dano (ex: 2d6)" />
+              <textarea
+                id="armaDesc"
+                placeholder="Descrição da arma"
+              ></textarea>
+
+              <input
+                type="file"
+                id="armaImagem"
+                accept="image/*"
+                onchange="previewArmaImagem()"
+              />
+              <label for="armaImagem" class="botao-upload"
+                >🖼 Adicionar imagem (opcional)</label
+              >
+              <img id="armaImagemPreview" style="display: none" />
+              <span class="link-remover-imagem" onclick="removerImagemArma()"
+                >Remover imagem</span
+              >
+
+              <div class="toggle-cargas">
+                <span class="toggle-cargas-texto">Usa cargas</span>
+
+                <label class="switch-cargas">
+                  <input
+                    type="checkbox"
+                    id="armaTemCargas"
+                    onchange="toggleCampoCargas()"
+                  />
+                  <span class="slider-cargas"></span>
+                </label>
+              </div>
+
+              <input
+                id="armaMaxCargas"
+                type="number"
+                min="1"
+                max="20"
+                placeholder="Qtd. de cargas"
+                style="display: none"
+              />
+
+              <div class="arma-acoes-final">
+                <button class="inv-add-btn" onclick="addArma()">+</button>
+              </div>
+            </div>
+          </div>
+
+          <ul id="listaArmas" class="lista-sempre-visivel"></ul>
+        </div>
+
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxArmadurasForm', this)"
+          >
+            <span>Armaduras</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+          <div id="boxArmadurasForm" class="conteudo-toggle aberto">
+            <div class="armadura-add">
+              <input id="armaduraNome" placeholder="Nome da armadura" />
+              <input id="armaduraCA" placeholder="CA (ex: 16)" />
+              <textarea
+                id="armaduraDesc"
+                placeholder="Descrição da armadura"
+              ></textarea>
+
+              <input
+                type="file"
+                id="armaduraImagem"
+                accept="image/*"
+                onchange="previewArmaduraImagem()"
+              />
+              <label for="armaduraImagem" class="botao-upload"
+                >🖼 Adicionar imagem (opcional)</label
+              >
+              <img id="armaduraImagemPreview" style="display: none" />
+              <span
+                class="link-remover-imagem"
+                onclick="removerImagemArmadura()"
+                >Remover imagem</span
+              >
+
+              <div class="toggle-cargas">
+                <span class="toggle-cargas-texto">Usa cargas</span>
+                <label class="switch-cargas">
+                  <input
+                    type="checkbox"
+                    id="armaduraTemCargas"
+                    onchange="toggleCampoCargasArmadura()"
+                  />
+                  <span class="slider-cargas"></span>
+                </label>
+              </div>
+
+              <input
+                id="armaduraMaxCargas"
+                type="number"
+                min="1"
+                max="20"
+                placeholder="Qtd. de cargas"
+                style="display: none"
+              />
+
+              <div class="add-linha">
+                <button class="inv-add-btn" onclick="addArmadura()">+</button>
+              </div>
+            </div>
+          </div>
+
+          <ul id="listaArmaduras" class="lista-sempre-visivel"></ul>
+        </div>
+
+        <div class="grid md-2">
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxDominio', this)"
+          >
+            <span>Pontos de Domínio</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+            <div id="boxDominio" class="conteudo-toggle aberto">
+            <div class="dominio-box">
+              <div class="dominio-topo">
+                <span>Pontos</span>
+                <button
+                  class="btn-editar-slots"
+                  onclick="editarQuantidadePontosDominio()"
+                >
+                  ✏️
+                </button>
+              </div>
+              <div class="dominio-checks" id="dominioChecks"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxExaustao', this)"
+          >
+            <span>Exaustão</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+          <div id="boxExaustao" class="conteudo-toggle aberto">
+            <div class="exaustao-box">
+              <div class="exaustao-inline">
+                <div class="exaustao-checks">
+                  <div class="exaustao-check" onclick="setExaustao(0)">0</div>
+                  <div class="exaustao-check" onclick="setExaustao(1)">1</div>
+                  <div class="exaustao-check" onclick="setExaustao(2)">2</div>
+                  <div class="exaustao-check" onclick="setExaustao(3)">3</div>
+                  <div class="exaustao-check" onclick="setExaustao(4)">4</div>
+                  <div class="exaustao-check" onclick="setExaustao(5)">5</div>
+                  <div class="exaustao-check" onclick="setExaustao(6)">6</div>
+                </div>
+              </div>
+
+              <p id="exaustao-desc">Sem exaustão</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxMorte', this)"
+          >
+            <span>Pontos de Morte</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+          <div id="boxMorte" class="conteudo-toggle aberto">
+            <div class="morte-box">
+              <div class="morte-linha">
+                <span>Sucessos</span>
+                <div class="morte-checks">
+                  <div
+                    class="morte-check"
+                    onclick="toggleMorte('sucessos', 0)"
+                  ></div>
+                  <div
+                    class="morte-check"
+                    onclick="toggleMorte('sucessos', 1)"
+                  ></div>
+                  <div
+                    class="morte-check"
+                    onclick="toggleMorte('sucessos', 2)"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="morte-linha">
+                <span>Falhas</span>
+                <div class="morte-checks">
+                  <div
+                    class="morte-check falha"
+                    onclick="toggleMorte('falhas', 0)"
+                  ></div>
+                  <div
+                    class="morte-check falha"
+                    onclick="toggleMorte('falhas', 1)"
+                  ></div>
+                  <div
+                    class="morte-check falha"
+                    onclick="toggleMorte('falhas', 2)"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxResistencias', this)"
+          >
+            <span>Resistências</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+          <div id="boxResistencias" class="conteudo-toggle aberto">
+            <div class="resistencias-box">
+              <textarea
+                id="resistencias"
+                oninput="salvarTudo()"
+                placeholder="Ex: resistência a fogo, veneno, dano mágico, ou qualquer observação que quiser..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- ================= INVENTÁRIO ================= -->
+      <div class="aba" id="inventario" style="display: none">
+        <h2 class="titulo-secao">Inventário</h2>
+
+        <button class="btn-diario" onclick="toggleDiario()">📖 Diário</button>
+
+        <div id="diario-box" class="diario-box" style="display: none">
+          <textarea
+            id="diario"
+            oninput="salvarTudo()"
+            placeholder="Escreva aqui seu diário, anotações, pistas, missões, nomes, eventos..."
+          ></textarea>
+        </div>
+
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxItensForm', this)"
+          >
+            <span>Itens</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+          <div id="boxItensForm" class="conteudo-toggle aberto">
+            <div class="inv-add">
+              <input id="itemNome" placeholder="Nome do item" />
+              <textarea id="itemDesc" placeholder="Descrição"></textarea>
+
+              <input
+                type="file"
+                id="itemImagem"
+                accept="image/*"
+                onchange="previewItemImagem()"
+              />
+              <label for="itemImagem" class="botao-upload"
+                >🖼 Adicionar imagem (opcional)</label
+              >
+              <img id="itemImagemPreview" style="display: none" />
+              <span class="link-remover-imagem" onclick="removerImagemItem()"
+                >Remover imagem</span
+              >
+
+              <input
+                id="itemQtd"
+                type="number"
+                min="1"
+                placeholder="Quantidade"
+              />
+
+              <div class="toggle-cargas">
+                <span class="toggle-cargas-texto">Requer sintonia</span>
+                <label class="switch-cargas">
+                  <input
+                    type="checkbox"
+                    id="itemRequerSintonia"
+                    onchange="toggleSintoniaItem()"
+                  />
+                  <span class="slider-cargas"></span>
+                </label>
+              </div>
+
+              <div id="boxItemSintonizado" style="display: none">
+                <div class="toggle-cargas">
+                  <span class="toggle-cargas-texto">Está sintonizado</span>
+                  <label class="switch-cargas">
+                    <input type="checkbox" id="itemSintonizado" />
+                    <span class="slider-cargas"></span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="add-linha">
+              <button class="inv-add-btn" onclick="addItem()">+</button>
+            </div>
+          </div>
+
+          <ul id="lista" class="lista-sempre-visivel"></ul>
+          
+          <div class="secao-toggle">
+        <h2 class="titulo-secao titulo-toggle" onclick="toggleSecao('boxMapasForm', this)">
+          <span>Mapas</span>
+          <span class="setinha">▼</span>
+        </h2>
+        <div id="boxMapasForm" class="conteudo-toggle aberto">
+          <div class="mapa-add">
+            <input id="mapaNome" placeholder="Nome do mapa" />
+            <textarea id="mapaDesc" placeholder="Descrição do mapa"></textarea>
+            <label class="botao-upload mapa-upload-label">
+              Escolher imagem
+              <input type="file" id="mapaImagem" accept="image/*" onchange="previewMapaImagem()" style="display:none" />
+            </label>
+            <div id="mapaPreviewBox" style="display:none">
+              <img id="mapaPreview" class="mapa-preview-thumb" />
+            </div>
+            <div class="add-linha">
+              <button class="inv-add-btn" onclick="addMapa()">+</button>
+            </div>
+          </div>
+        </div>
+        <ul id="listaMapas" class="lista-sempre-visivel"></ul>
+      </div>
+        </div>
+      </div>
+
+
+      <!-- VISUALIZADOR DE MAPA FULLSCREEN -->
+      <div id="mapaViewer" class="mapa-viewer fechado">
+        <div class="mapa-viewer-topo">
+          <span id="mapaViewerNome" class="mapa-viewer-titulo"></span>
+          <button class="mapa-viewer-fechar" onclick="fecharMapaViewer()">✕</button>
+        </div>
+        <canvas id="mapaCanvas"></canvas>
+        <div class="mapa-viewer-toolbar">
+          <div class="mapa-toolbar-cores">
+            <div class="mapa-cor ativa" style="background:#ef4444" data-cor="#ef4444" onclick="selecionarCorMapa(this)"></div>
+            <div class="mapa-cor" style="background:#3b82f6" data-cor="#3b82f6" onclick="selecionarCorMapa(this)"></div>
+            <div class="mapa-cor" style="background:#22c55e" data-cor="#22c55e" onclick="selecionarCorMapa(this)"></div>
+            <div class="mapa-cor" style="background:#000000" data-cor="#000000" onclick="selecionarCorMapa(this)"></div>
+            <div class="mapa-cor" style="background:#ffffff" data-cor="#ffffff" onclick="selecionarCorMapa(this)"></div>
+          </div>
+          <div class="mapa-toolbar-ferramentas">
+            <button class="mapa-tool ativa" data-tool="pincel" onclick="selecionarFerramentaMapa(this)" title="Pincel">✏</button>
+            <button class="mapa-tool" data-tool="texto" onclick="selecionarFerramentaMapa(this)" title="Texto">T</button>
+            <button class="mapa-tool" data-tool="seta" onclick="selecionarFerramentaMapa(this)" title="Seta">↗</button>
+            <button class="mapa-tool" data-tool="x" onclick="selecionarFerramentaMapa(this)" title="X">✗</button>
+            <button class="mapa-tool" data-tool="caveira" onclick="selecionarFerramentaMapa(this)" title="Caveira">☠</button>
+            <button class="mapa-tool" data-tool="pergaminho" onclick="selecionarFerramentaMapa(this)" title="Pergaminho">📜</button>
+            <button class="mapa-tool" data-tool="interrogacao" onclick="selecionarFerramentaMapa(this)" title="?">?</button>
+            <button class="mapa-tool" data-tool="pan" onclick="selecionarFerramentaMapa(this)" title="Mover">✋</button>
+            <button class="mapa-tool" data-tool="borracha" onclick="selecionarFerramentaMapa(this)" title="Borracha">⌫</button>
+          </div>
+          <div class="mapa-toolbar-acoes">
+            <button class="mapa-tool-acao" onclick="desfazerMapaAnotacao()" title="Desfazer">↩</button>
+            <button class="mapa-tool-acao mapa-zoom-in" onclick="zoomMapa(0.2)" title="Zoom +">+</button>
+            <button class="mapa-tool-acao mapa-zoom-out" onclick="zoomMapa(-0.2)" title="Zoom −">−</button>
+            <button class="mapa-tool-acao mapa-salvar" onclick="salvarAnotacoesMapa()" title="Salvar">Salvar</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- INPUT TEXTO MAPA -->
+      <div id="mapaInputTexto" class="mapa-input-texto fechado">
+        <input id="mapaTextoValor" placeholder="Digite a anotação..." />
+        <button onclick="confirmarTextoMapa()">OK</button>
+        <button onclick="cancelarTextoMapa()">✕</button>
+      </div>
+
+
+      <!-- ================= PODERES ================= -->
+      <div class="aba" id="poderes" style="display: none">
+        <h2 class="titulo-secao">Poderes e Magias</h2>
+
+        <div class="dt-box">
+          <h3 class="subtitulo-secao">DT</h3>
+
+          <div class="dt-linha">
+            <div class="campo">
+              <label for="dtBase">Base</label>
+              <input
+                id="dtBase"
+                type="text"
+                value="8"
+                oninput="
+                  atualizarDT();
+                  salvarTudo();
+                "
+              />
+            </div>
+
+            <div class="campo">
+              <label for="dtAtributo">Mod.</label>
+              <input
+                id="dtAtributo"
+                type="text"
+                value="0"
+                oninput="
+                  atualizarDT();
+                  salvarTudo();
+                "
+              />
+            </div>
+
+            <div class="campo">
+              <label for="dtProf">Prof.</label>
+              <input
+                id="dtProf"
+                type="text"
+                value="2"
+                oninput="
+                  atualizarDT();
+                  salvarTudo();
+                "
+              />
+            </div>
+          </div>
+
+          <div class="dt-resultado-box">
+            <span>DT Total</span>
+            <div id="dtTotal">10</div>
+          </div>
+        </div>
+
+        <div class="secao-toggle">
+          <h2
+            class="titulo-secao titulo-toggle"
+            onclick="toggleSecao('boxPoderForm', this)"
+          >
+            <span>Adicionar Poder</span>
+            <span class="setinha">▼</span>
+          </h2>
+
+          <div id="boxPoderForm" class="conteudo-toggle aberto">
+            <div class="poder-add">
+              <input id="poderNome" placeholder="Nome do poder" />
+
+              <div class="select-wrapper">
+                <select id="poderTipo" class="input-personagem">
+                  <option value="">Tipo de dano</option>
+                  <option value="fogo">🔥 Fogo</option>
+                  <option value="gelo">❄️ Gelo</option>
+                  <option value="raio">⚡ Raio</option>
+                  <option value="trovejante">🌩️ Trovejante</option>
+                  <option value="necrotico">💀 Necrótico</option>
+                  <option value="radiante">✨ Radiante</option>
+                  <option value="veneno">☠️ Veneno</option>
+                  <option value="agua">💧 Água</option>
+                  <option value="magico">☄️ Mágico</option>
+                  <option value="psiquico">🧠 Psíquico</option>
+                  <option value="corte">🔪 Corte</option>
+                  <option value="perfurante">📌 Perfurante</option>
+                  <option value="concussao">💥 Concussão</option>
+                  <option value="metal">⚙️ Metal</option>
+                  <option value="fisico">🗡️ Físico</option>
+                  <option value="vento">🍃 Vento</option>
+                  <option value="madeira">🌳 Madeira</option>
+                  <option value="terra">🌍 Terra</option>
+                  <option value="trevas">🌑 Trevas</option>
+                  <option value="luz">🌕 Luz</option>
+                  <option value="espirito">🌓 Espírito</option>
+                </select>
+              </div>
+
+              <input id="poderDano" placeholder="Dano (ex: 2d6, 1d8+3)" />
+
+              <div class="poder-linha">
+                <div class="select-wrapper">
+                  <select id="poderCirculo" class="input-personagem">
+                    <option value="">Sem círculo (Poder)</option>
+                    <option value="talento">Talento</option>
+                    <option value="passiva">Passiva</option>
+                    <option value="0">Círculo 0 (Truque)</option>
+                    <option value="1">Círculo 1</option>
+                    <option value="2">Círculo 2</option>
+                    <option value="3">Círculo 3</option>
+                    <option value="4">Círculo 4</option>
+                    <option value="5">Círculo 5</option>
+                    <option value="6">Círculo 6</option>
+                    <option value="7">Círculo 7</option>
+                    <option value="8">Círculo 8</option>
+                    <option value="9">Círculo 9</option>
+                  </select>
+                </div>
+
+                <input id="poderTempo" placeholder="Conjuração" />
+              </div>
+
+              <div class="poder-linha">
+                <input id="poderAlcance" placeholder="Alcance" />
+                <input id="poderDuracao" placeholder="Duração" />
+              </div>
+
+              <textarea
+                id="poderDesc"
+                placeholder="Descrição do poder"
+              ></textarea>
+              <div class="toggle-cargas">
+                <span class="toggle-cargas-texto">Possui usos</span>
+                <label class="switch-cargas">
+                  <input
+                    type="checkbox"
+                    id="poderTemCargas"
+                    onchange="toggleCampoCargasPoder()"
+                  />
+                  <span class="slider-cargas"></span>
+                </label>
+              </div>
+
+              <input
+                id="poderMaxCargas"
+                type="number"
+                min="1"
+                max="30"
+                placeholder="Qtd. de usos"
+                style="display: none"
+              />
+            </div>
+
+            <div class="add-linha">
+              <button class="inv-add-btn" onclick="addPoder()">+</button>
+            </div>
+          </div>
+
+          <div class="subtabs-poderes">
+  <button
+    class="subtab-poder active"
+    onclick="trocarSubAbaPoderes('poderes-comuns', this)"
+  >
+    Poderes<span class="subtab-contador" id="contadorPoderes"></span>
+  </button>
+  <button
+    class="subtab-poder"
+    onclick="trocarSubAbaPoderes('magias', this)"
+  >
+    Magias<span class="subtab-contador" id="contadorMagias"></span>
+  </button>
+  <button
+    class="subtab-poder"
+    onclick="trocarSubAbaPoderes('talentos', this)"
+  >
+    Talentos<span class="subtab-contador" id="contadorTalentos"></span>
+  </button>
+  <button
+    class="subtab-poder"
+    onclick="trocarSubAbaPoderes('passivas', this)"
+  >
+    Passivas<span class="subtab-contador" id="contadorPassivas"></span>
+  </button>
+</div>
+
+          <div id="subaba-poderes-comuns" class="subaba-poderes active">
+  <ul id="listaPoderesComuns" class="lista-sempre-visivel"></ul>
+</div>
+
+<div id="subaba-talentos" class="subaba-poderes" style="display: none">
+  <ul id="listaTalentos" class="lista-sempre-visivel"></ul>
+</div>
+
+<div id="subaba-passivas" class="subaba-poderes" style="display: none">
+  <ul id="listaPassivas" class="lista-sempre-visivel"></ul>
+</div>
+
+          <div id="subaba-magias" class="subaba-poderes" style="display: none">
+            <div class="subtabs-circulos">
+              <div class="bloco-circulos">
+                <button
+                  class="subtab-circulo active"
+                  onclick="trocarSubAbaCirculo(0, this)"
+                >
+                  0
+                </button>
+                <button
+                  class="subtab-circulo"
+                  onclick="trocarSubAbaCirculo(1, this)"
+                >
+                  1
+                </button>
+                <button
+                  class="subtab-circulo"
+                  onclick="trocarSubAbaCirculo(2, this)"
+                >
+                  2
+                </button>
+                <button
+                  class="subtab-circulo"
+                  onclick="trocarSubAbaCirculo(3, this)"
+                >
+                  3
+                </button>
+                <button
+                  class="subtab-circulo"
+                  onclick="trocarSubAbaCirculo(4, this)"
+                >
+                  4
+                </button>
+              </div>
+
+              <div class="bloco-circulos">
+                <button
+                  class="subtab-circulo"
+                  onclick="trocarSubAbaCirculo(5, this)"
+                >
+                  5
+                </button>
+                <button
+                  class="subtab-circulo"
+                  onclick="trocarSubAbaCirculo(6, this)"
+                >
+                  6
+                </button>
+                <button
+                  class="subtab-circulo"
+                  onclick="trocarSubAbaCirculo(7, this)"
+                >
+                  7
+                </button>
+                <button
+                  class="subtab-circulo"
+                  onclick="trocarSubAbaCirculo(8, this)"
+                >
+                  8
+                </button>
+                <button
+                  class="subtab-circulo"
+                  onclick="trocarSubAbaCirculo(9, this)"
+                >
+                  9
+                </button>
+              </div>
+            </div>
+
+            <!-- ================= CÍRCULOS ================= -->
+
+            <div id="circulo-0" class="circulo-box active">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 0</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(0)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo0" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo0" class="lista-sempre-visivel"></ul>
+            </div>
+
+            <div id="circulo-1" class="circulo-box" style="display: none">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 1</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(1)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo1" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo1" class="lista-sempre-visivel"></ul>
+            </div>
+
+            <div id="circulo-2" class="circulo-box" style="display: none">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 2</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(2)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo2" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo2" class="lista-sempre-visivel"></ul>
+            </div>
+
+            <div id="circulo-3" class="circulo-box" style="display: none">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 3</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(3)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo3" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo3" class="lista-sempre-visivel"></ul>
+            </div>
+
+            <div id="circulo-4" class="circulo-box" style="display: none">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 4</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(4)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo4" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo4" class="lista-sempre-visivel"></ul>
+            </div>
+
+            <div id="circulo-5" class="circulo-box" style="display: none">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 5</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(5)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo5" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo5" class="lista-sempre-visivel"></ul>
+            </div>
+
+            <div id="circulo-6" class="circulo-box" style="display: none">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 6</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(6)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo6" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo6" class="lista-sempre-visivel"></ul>
+            </div>
+
+            <div id="circulo-7" class="circulo-box" style="display: none">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 7</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(7)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo7" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo7" class="lista-sempre-visivel"></ul>
+            </div>
+
+            <div id="circulo-8" class="circulo-box" style="display: none">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 8</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(8)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo8" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo8" class="lista-sempre-visivel"></ul>
+            </div>
+
+            <div id="circulo-9" class="circulo-box" style="display: none">
+              <div class="gasto-circulo-box">
+                <div class="topo-slots-circulo">
+                  <span>Círculo 9</span>
+                  <button
+                    class="btn-editar-slots"
+                    onclick="editarQuantidadeSlotsCirculo(9)"
+                  >
+                    ✏️
+                  </button>
+                </div>
+                <div id="slotsCirculo9" class="slots-circulo"></div>
+              </div>
+              <ul id="listaMagiasCirculo9" class="lista-sempre-visivel"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== TELA PLANOS ===== -->
+<div id="tela-planos" style="display:none; position:fixed; inset:0; z-index:6000; overflow-y:auto; background:#100D0A;">
+  <div class="planos-page">
+
+    <button class="planos-voltar" onclick="fecharTelaPlanos()">← Voltar</button>
+
+    <div class="planos-header">
+      <div class="planos-brand">⚔ Ficha Ígnea</div>
+      <h1 class="planos-titulo">Escolha seu Plano</h1>
+      <p class="planos-subtitulo">Desbloqueie todo o poder da mesa.</p>
+      <div class="planos-divisor">
+        <div class="planos-divisor-linha"></div>
+        <div class="planos-divisor-gem"></div>
+        <div class="planos-divisor-linha"></div>
+      </div>
+    </div>
+
+    <div class="planos-lista">
+
+      <!-- COMPLETO -->
+      <div class="plano-card plano-destaque">
+        <div class="plano-badge">✦ Mais popular</div>
+        <div class="plano-topo">
+          <span class="plano-icone">⚔</span>
+          <div class="plano-meta">
+            <div class="plano-para">Para quem faz os dois</div>
+            <div class="plano-nome">Completo</div>
+            <div class="plano-tagline">Jogue e mestre sem nenhum limite</div>
+          </div>
+          <div class="plano-preco-box">
+            <div class="plano-preco"><span class="plano-cifrao">R$</span>10<span class="plano-centavos">,99</span></div>
+            <div class="plano-periodo">por mês</div>
+            <span class="plano-economia">Economize R$3</span>
+          </div>
+        </div>
+        <div class="plano-sep"></div>
+        <ul class="plano-features">
+          <li><span class="plano-dot">◆</span> Fichas de personagem ilimitadas</li>
+          <li><span class="plano-dot">◆</span> Campanhas ilimitadas no Grimório</li>
+          <li><span class="plano-dot">◆</span> Todos os sistemas suportados</li>
+          <li><span class="plano-dot">◆</span> Acesso em qualquer dispositivo</li>
+        </ul>
+        <button class="plano-btn plano-btn-gold" onclick="assinarPlano('completo')">Assinar Completo</button>
+      </div>
+
+      <!-- PLAYER -->
+      <div class="plano-card">
+        <div class="plano-topo">
+          <span class="plano-icone">🎲</span>
+          <div class="plano-meta">
+            <div class="plano-para">Para quem joga</div>
+            <div class="plano-nome">Player</div>
+            <div class="plano-tagline">Fichas sem limite, prontas para a batalha</div>
+          </div>
+          <div class="plano-preco-box">
+            <div class="plano-preco"><span class="plano-cifrao">R$</span>6<span class="plano-centavos">,99</span></div>
+            <div class="plano-periodo">por mês</div>
+          </div>
+        </div>
+        <div class="plano-sep"></div>
+        <ul class="plano-features">
+          <li><span class="plano-dot">◆</span> Fichas de personagem ilimitadas</li>
+          <li><span class="plano-dot">◆</span> Todos os sistemas suportados</li>
+          <li><span class="plano-dot">◆</span> Acesso em qualquer dispositivo</li>
+          <li class="plano-locked"><span class="plano-dot">◆</span> Múltiplas campanhas (Mestre)</li>
+        </ul>
+        <button class="plano-btn plano-btn-ghost" onclick="assinarPlano('player')">Assinar Player</button>
+      </div>
+
+      <!-- MASTER -->
+      <div class="plano-card">
+        <div class="plano-topo">
+          <span class="plano-icone">📖</span>
+          <div class="plano-meta">
+            <div class="plano-para">Para quem mestra</div>
+            <div class="plano-nome">Master</div>
+            <div class="plano-tagline">Grimório sem limites para suas aventuras</div>
+          </div>
+          <div class="plano-preco-box">
+            <div class="plano-preco"><span class="plano-cifrao">R$</span>6<span class="plano-centavos">,99</span></div>
+            <div class="plano-periodo">por mês</div>
+          </div>
+        </div>
+        <div class="plano-sep"></div>
+        <ul class="plano-features">
+          <li><span class="plano-dot">◆</span> Campanhas ilimitadas no Grimório</li>
+          <li><span class="plano-dot">◆</span> Organize NPCs, mapas e sessões</li>
+          <li><span class="plano-dot">◆</span> Acesso em qualquer dispositivo</li>
+          <li class="plano-locked"><span class="plano-dot">◆</span> Fichas ilimitadas (Player)</li>
+        </ul>
+        <button class="plano-btn plano-btn-ghost" onclick="assinarPlano('master')">Assinar Master</button>
+      </div>
+
+    </div>
+
+    <p class="planos-free-note">Plano gratuito: 1 ficha e 1 campanha.</p>
+
+  </div>
+</div>
+
+    <div id="btnSalvarFlutuante" style="position:fixed;top:20%;right:16px;z-index:99998;width:48px;height:48px;border-radius:50%;background:rgba(30,18,8,0.85);border:1px solid rgba(255,255,255,0.25);color:#fff;font-size:20px;box-shadow:0 4px 14px rgba(0,0,0,0.5);cursor:grab;display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none;">💾</div>
+
+    <div id="popup" class="popup" style="display: none">
+      <div class="popup-content">
+        <span class="fechar" onclick="fecharPopup()">&times;</span>
+        <h3 id="popup-titulo"></h3>
+        <div id="popup-texto"></div>
+        <button
+          id="popup-editar"
+          class="popup-salvar-btn"
+          style="display: none"
+        >
+          Editar
+        </button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker
+          .register("sw.js")
+          .then(() => console.log("SW registrado"))
+          .catch((err) => console.log("Erro SW:", err));
+      }
+    </script>
+
+ <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+  import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+  sendPasswordResetEmail,
+  setPersistence,
+  browserLocalPersistence
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  collection,
+  getDocs,
+  deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+import {
+  getStorage,
+  ref,
+  uploadString,
+  getDownloadURL,
+  deleteObject
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCRbpNWige23ErKLRzt5BYNF3ltCYaRw24",
+    authDomain: "ficha-ignea.firebaseapp.com",
+    projectId: "ficha-ignea",
+    storageBucket: "ficha-ignea.firebasestorage.app",
+    messagingSenderId: "810805802203",
+    appId: "1:810805802203:web:5968e477ae99fee33348fe",
+    measurementId: "G-Z73L6FD3BX"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  window.db = db;
+  const storage = getStorage(app);
+  window.storage = storage;
+  window.storageRef = ref;
+  window.uploadString = uploadString;
+  window.getDownloadURL = getDownloadURL;
+  window.deleteObject = deleteObject;
+  window.doc = doc;
+  window.setDoc = setDoc;
+  window.getDoc = getDoc;
+  window.deleteDoc = deleteDoc;
+
+  await setPersistence(auth, browserLocalPersistence);
+
+  window.usuarioAtual = null;
+
+  function mostrarErroLogin(msg) {
+    const erro = document.getElementById("loginErro");
+    if (erro) erro.textContent = msg;
+    else alert(msg);
+  }
+
+  function limparErroLogin() {
+    const erro = document.getElementById("loginErro");
+    if (erro) erro.textContent = "";
+  }
+
+  function emailEhValido(email) {
+    email = email.trim().toLowerCase();
+    if (!email.includes("@") || email.split("@").length !== 2) return false;
+
+    const [user, domain] = email.split("@");
+    if (!user || user.length < 2) return false;
+    if (!domain.includes(".")) return false;
+    if (domain.endsWith(".")) return false;
+    if (email.includes("..") || email.includes("@.")) return false;
+
+    const partes = domain.split(".");
+    const extensao = partes[partes.length - 1];
+
+    const extensoesValidas = [
+      "com", "br", "net", "org", "edu", "gov", "io", "app"
+    ];
+
+    if (!extensoesValidas.includes(extensao)) return false;
+
+    return true;
+  }
+
+  function tratarErroFirebase(code) {
+    switch (code) {
+      case "auth/email-already-in-use":
+        return "Esse email já está cadastrado.";
+      case "auth/invalid-email":
+        return "Digite um email válido.";
+      case "auth/weak-password":
+        return "A senha precisa ter pelo menos 6 caracteres.";
+      case "auth/user-not-found":
+        return "Conta não encontrada.";
+      case "auth/wrong-password":
+      case "auth/invalid-credential":
+        return "Email ou senha incorretos.";
+      case "auth/missing-password":
+        return "Digite sua senha.";
+      case "auth/too-many-requests":
+        return "Muitas tentativas. Tente novamente mais tarde.";
+      default:
+        return code || "Erro inesperado.";
+    }
+  }
+
+  async function salvarFichasNaNuvem() {
+  if (!window.usuarioAtual) return;
+
+  const uid = window.usuarioAtual.uid;
+
+  // 🔥 CORREÇÃO: usa o array em memória, não relê o localStorage
+  // Reler o localStorage a cada save fazia fichas sem ID gerarem
+  // um ID novo a cada chamada, criando duplicatas infinitas no Firestore
+  const fichas = window.personagens || [];
+
+
+  for (const ficha of fichas) {
+    if (!ficha) continue;
+    if (!ficha.id) {
+      ficha.id = Date.now() + Math.floor(Math.random() * 99999);
+    }
+    try {
+      await setDoc(
+        doc(db, "usuarios", uid, "fichas", String(ficha.id)),
+        ficha
+      );
+    } catch (erro) {
+    }
+  }
+
+  await setDoc(
+    doc(db, "usuarios", uid),
+    {
+      email: window.usuarioAtual.email,
+      atualizadoEm: new Date().toISOString()
+    },
+    { merge: true }
+  );
+
+  try {
+    localStorage.setItem("personagens", JSON.stringify(fichas));
+  } catch (erro) {
+    console.warn("localStorage cheio. Fichas mantidas na nuvem.", erro);
+  }
+}
+
+  async function carregarFichasDaNuvem() {
+  if (!window.usuarioAtual) return;
+
+  const uid = window.usuarioAtual.uid;
+
+  const fichasLocais =
+    JSON.parse(localStorage.getItem("personagens")) || [];
+
+  const snapFichas = await getDocs(
+    collection(db, "usuarios", uid, "fichas")
+  );
+
+  const fichasNuvem = [];
+
+  snapFichas.forEach((docSnap) => {
+    fichasNuvem.push(docSnap.data());
+  });
+
+  if (fichasNuvem.length === 0 && fichasLocais.length > 0) {
+    const confirmar = confirm(
+      "Encontramos fichas neste dispositivo. Deseja vincular à sua conta?"
+    );
+
+    if (confirmar) {
+      personagens = fichasLocais;
+      window.personagens = personagens;
+
+      await salvarFichasNaNuvem();
+
+      alert("Fichas vinculadas com sucesso!");
+    } else {
+      personagens = [];
+      window.personagens = personagens;
+      localStorage.setItem("personagens", JSON.stringify([]));
+    }
+  } else if (fichasNuvem.length > 0) {
+    personagens = fichasNuvem;
+    window.personagens = personagens;
+    localStorage.setItem("personagens", JSON.stringify(personagens));
+  } else {
+    personagens = [];
+    window.personagens = personagens;
+  }
+
+  if (typeof renderPersonagens === "function") {
+    renderPersonagens();
+  }
+}
+
+async function salvarMonstrosNaNuvem() {
+  if (!window.usuarioAtual) return;
+
+  const uid = window.usuarioAtual.uid;
+
+  const monstros =
+    JSON.parse(localStorage.getItem("monstrosMestre")) || [];
+
+  const combates =
+    JSON.parse(localStorage.getItem("combatesMestre")) || [];
+
+  // 🔥 salva monstros separados
+  for (const monstro of monstros) {
+
+    if (!monstro.id) {
+      monstro.id =
+        Date.now() + Math.floor(Math.random() * 99999);
+    }
+
+    await setDoc(
+      doc(db, "usuarios", uid, "monstros", String(monstro.id)),
+      monstro
+    );
+  }
+
+  // 🔥 combate separado
+  await setDoc(
+    doc(db, "usuarios", uid, "estado", "combate"),
+    {
+      combatesMestre: combates,
+      atualizadoEm: new Date().toISOString()
+    }
+  );
+}
+
+async function carregarMonstrosDaNuvem() {
+  if (!window.usuarioAtual) return;
+
+  const uid = window.usuarioAtual.uid;
+
+  const monstrosLocais =
+    JSON.parse(localStorage.getItem("monstrosMestre")) || [];
+
+  const combatesLocais =
+    JSON.parse(localStorage.getItem("combatesMestre")) || [];
+
+  // 🔥 pega monstros separados
+  const snapMonstros = await getDocs(
+    collection(db, "usuarios", uid, "monstros")
+  );
+
+  const monstrosNuvem = [];
+
+  snapMonstros.forEach((docSnap) => {
+    monstrosNuvem.push(docSnap.data());
+  });
+
+  // 🔥 pega combate
+  const combateRef = doc(
+    db,
+    "usuarios",
+    uid,
+    "estado",
+    "combate"
+  );
+
+  const combateSnap = await getDoc(combateRef);
+
+  let combatesNuvem = [];
+
+  if (combateSnap.exists()) {
+    combatesNuvem =
+      combateSnap.data().combatesMestre || [];
+  }
+
+  monstrosMestre =
+    monstrosNuvem.length > 0
+      ? monstrosNuvem
+      : monstrosLocais;
+
+  combatesMestre =
+    combatesNuvem.length > 0
+      ? combatesNuvem
+      : combatesLocais;
+
+  window.monstrosMestre = monstrosMestre;
+  window.combatesMestre = combatesMestre;
+
+  localStorage.setItem(
+    "monstrosMestre",
+    JSON.stringify(monstrosMestre)
+  );
+
+  localStorage.setItem(
+    "combatesMestre",
+    JSON.stringify(combatesMestre)
+  );
+
+  if (typeof renderMonstrosMestre === "function") {
+    renderMonstrosMestre();
+  }
+
+  if (typeof renderCombatesMestre === "function") {
+    renderCombatesMestre();
+  }
+}
+
+window.salvarMonstrosNaNuvem = salvarMonstrosNaNuvem;
+window.carregarMonstrosDaNuvem = carregarMonstrosDaNuvem;
+
+  window.salvarFichasNaNuvem = salvarFichasNaNuvem;
+
+  window.criarConta = async () => {
+    limparErroLogin();
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const senha = document.getElementById("loginSenha").value.trim();
+
+    if (!emailEhValido(email)) {
+      mostrarErroLogin("Digite um email válido.");
+      return;
+    }
+
+    if (senha.length < 6) {
+      mostrarErroLogin("A senha precisa ter pelo menos 6 caracteres.");
+      return;
+    }
+
+    try {
+      await createUserWithEmailAndPassword(auth, email, senha);
+      mostrarErroLogin("Conta criada com sucesso!");
+    } catch (e) {
+      mostrarErroLogin(tratarErroFirebase(e.code));
+    }
+  };
+
+  window.fazerLogin = async () => {
+    limparErroLogin();
+
+    const email = document.getElementById("loginEmail").value.trim();
+    const senha = document.getElementById("loginSenha").value.trim();
+
+    if (!emailEhValido(email)) {
+      mostrarErroLogin("Digite um email válido.");
+      return;
+    }
+
+    if (!senha) {
+      mostrarErroLogin("Digite sua senha.");
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, senha);
+      limparErroLogin();
+    } catch (e) {
+      mostrarErroLogin(tratarErroFirebase(e.code));
+    }
+  };
+
+  window.recuperarSenha = async () => {
+    limparErroLogin();
+
+    const email = document.getElementById("loginEmail").value.trim();
+
+    if (!emailEhValido(email)) {
+      mostrarErroLogin("Digite seu email para recuperar a senha.");
+      return;
+    }
+
+    try {
+      await sendPasswordResetEmail(auth, email);
+      mostrarErroLogin("Email de recuperação enviado. Verifique sua caixa de entrada ou spam.");
+    } catch (e) {
+      mostrarErroLogin(tratarErroFirebase(e.code));
+    }
+  };
+
+  window.sairConta = async () => {
+  try {
+    await signOut(auth);
+
+    document.getElementById("loginBox").style.display = "block";
+
+    const telas = [
+      "tela-modo",
+      "tela-inicial",
+      "ficha",
+      "masterIgnea",
+      "sheetMonstro",
+      "sheetMonstroOverlay"
+    ];
+
+    telas.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.style.display = "none";
+    });
+
+    window.usuarioAtual = null;
+    personagemAtual = null;
+
+  } catch (e) {
+    alert(tratarErroFirebase(e.code));
+  }
+};
+
+  onAuthStateChanged(auth, async (user) => {
+
+  const ficha = document.getElementById("ficha");
+
+  if (user) {
+    window.usuarioAtual = user;
+
+    if (loginBox) loginBox.style.display = "none";
+
+    abrirTelaModo();
+
+    await carregarFichasDaNuvem();
+    await carregarMonstrosDaNuvem();
+    await carregarCampanhasMasterFirebase();
+
+  }  else {
+  window.usuarioAtual = null;
+  personagemAtual = null;
+
+  const loginBox = document.getElementById("loginBox");
+  if (loginBox) loginBox.style.display = "block";
+
+  const telas = [
+    "tela-modo",
+    "tela-inicial",
+    "ficha",
+    "masterIgnea",
+    "sheetMonstro",
+    "sheetMonstroOverlay"
+  ];
+
+  telas.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = "none";
+  });
+}
+});
+
+</script>
+  
+
+  </body>
+</html>
