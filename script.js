@@ -6074,8 +6074,10 @@ function _abrirPopupBossCompendio(boss) {
     </div>`;
 
   const conteudo = `
-    ${boss.imagem ? `<img src="${boss.imagem}" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin-bottom:12px;">` : ""}
-    <h2 class="sheet-titulo" style="text-align:center;margin-bottom:4px;">${escapeHtml(boss.nome)}</h2>
+${boss.imagem ? `<div class="sheet-img-wrap">
+  <img class="sheet-img" src="${boss.imagem}" style="width:100%;max-height:340px;object-fit:cover;object-position:top center;border-radius:10px;">
+  <button class="sheet-img-expand" onclick="event.stopPropagation(); abrirImagemExpandida(this)" data-img="${escapeHtml(boss.imagem)}" title="Ver imagem completa">⤢</button>
+</div>` : ""}    <h2 class="sheet-titulo" style="text-align:center;margin-bottom:4px;">${escapeHtml(boss.nome)}</h2>
     <div class="sheet-meta" style="text-align:center;margin-bottom:8px;">${[boss.titulo, boss.tipo, boss.regiao].filter(Boolean).map(v => escapeHtml(v)).join(" • ")}</div>
     ${boss.hpMax ? `<div class="sheet-hp-ca" style="text-align:center;margin-bottom:12px;">HP ${boss.hpMax} • CA ${boss.ca || 0}</div>` : ""}
     ${(boss.status && Object.keys(boss.status).length) ? `
@@ -6115,8 +6117,10 @@ function _abrirPopupItemCompendio(item) {
     </div>`;
 
   const conteudo = `
-    ${item.imagem ? `<img src="${item.imagem}" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin-bottom:12px;">` : ""}
-    <h2 class="sheet-titulo" style="text-align:center;margin-bottom:4px;">${escapeHtml(item.nome)}</h2>
+${item.imagem ? `<div class="sheet-img-wrap">
+  <img class="sheet-img" src="${item.imagem}" style="width:100%;max-height:340px;object-fit:cover;object-position:top center;border-radius:10px;">
+  <button class="sheet-img-expand" onclick="event.stopPropagation(); abrirImagemExpandida(this)" data-img="${escapeHtml(item.imagem)}" title="Ver imagem completa">⤢</button>
+</div>` : ""}    <h2 class="sheet-titulo" style="text-align:center;margin-bottom:4px;">${escapeHtml(item.nome)}</h2>
     <div class="sheet-meta" style="text-align:center;margin-bottom:8px;">${[item.tipo, r[item.raridade]].filter(Boolean).join(" • ")}</div>
     ${item.sintonia === "sim" ? `<div class="sheet-meta" style="text-align:center;margin-bottom:12px;">✦ Requer sintonização</div>` : ""}
     ${item.efeito    ? bloco("Efeito", escapeHtml(item.efeito)) : ""}
@@ -6141,8 +6145,10 @@ function _abrirPopupNPCCompendio(npc) {
     </div>`;
 
   const conteudo = `
-    ${npc.imagem ? `<img src="${npc.imagem}" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin-bottom:12px;">` : ""}
-    <h2 class="sheet-titulo" style="text-align:center;margin-bottom:4px;">${escapeHtml(npc.nome)}</h2>
+${npc.imagem ? `<div class="sheet-img-wrap">
+  <img class="sheet-img" src="${npc.imagem}" style="width:100%;max-height:340px;object-fit:cover;object-position:top center;border-radius:10px;">
+  <button class="sheet-img-expand" onclick="event.stopPropagation(); abrirImagemExpandida(this)" data-img="${escapeHtml(npc.imagem)}" title="Ver imagem completa">⤢</button>
+</div>` : ""}    <h2 class="sheet-titulo" style="text-align:center;margin-bottom:4px;">${escapeHtml(npc.nome)}</h2>
     <div class="sheet-meta" style="text-align:center;margin-bottom:8px;">${[npc.raca, npc.classe, npc.regiao].filter(Boolean).map(v => escapeHtml(v)).join(" • ")}</div>
     ${(npc.status && Object.keys(npc.status).length) ? `
     <div class="sheet-status-grid" style="margin-bottom:12px;">
@@ -6180,6 +6186,7 @@ function _abrirSheetCustom(conteudo) {
   requestAnimationFrame(() => sheet.classList.add("aberto"));
   document.body.classList.add("master-sheet-aberto");
   ativarGestosSheetMonstro();
+  atualizarPeeksSheetMonstro();
 }
 
 
@@ -6221,10 +6228,10 @@ function abrirSheetMonstroPadrao(monstro) {
     </div>`;
 
   conteudo.innerHTML = `
-    ${imagem ? `<img class="sheet-img" src="${imagem}" alt="${escapeHtml(monstro.nome)}" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin-bottom:12px;transition:opacity 0.3s ease;" onload="this.style.opacity='1'" style="opacity:0">` : ""}
-
-    <h2 class="sheet-titulo" style="text-align:center;margin-bottom:4px;">${escapeHtml(monstro.nome)}</h2>
-    <div class="sheet-meta" style="text-align:center;margin-bottom:8px;">${escapeHtml(monstro.tipo || "Tipo não definido")} · ${escapeHtml(monstro.regiao || "Região não definida")}</div>
+${imagem ? `<div class="sheet-img-wrap">
+  <img class="sheet-img" src="${imagem}" alt="${escapeHtml(monstro.nome)}" style="width:100%;max-height:340px;object-fit:cover;object-position:top center;border-radius:10px;transition:opacity 0.3s ease;" onload="this.style.opacity='1'" style="opacity:0">
+  <button class="sheet-img-expand" onclick="event.stopPropagation(); abrirImagemExpandida(this)" data-img="${escapeHtml(imagem)}" title="Ver imagem completa">⤢</button>
+</div>` : ""}    <div class="sheet-meta" style="text-align:center;margin-bottom:8px;">${escapeHtml(monstro.tipo || "Tipo não definido")} · ${escapeHtml(monstro.regiao || "Região não definida")}</div>
     <div class="sheet-hp-ca" style="text-align:center;margin-bottom:12px;">HP ${monstro.hpAtual}/${monstro.hpMax} · CA ${monstro.ca || 0}</div>
 
     <div class="sheet-status-grid" style="margin-bottom:12px;">
@@ -6276,6 +6283,7 @@ function abrirSheetMonstroPadrao(monstro) {
   requestAnimationFrame(() => setTimeout(() => sheet.classList.add("aberto"), 10));
   document.body.classList.add("master-sheet-aberto");
   ativarGestosSheetMonstro();
+  atualizarPeeksSheetMonstro();
 }
 
 function abrirSheetMonstroPorObjeto(monstro, index, lista = null) {
@@ -6305,10 +6313,10 @@ function abrirSheetMonstro(index) {
     </div>`;
 
   conteudo.innerHTML = `
-    ${imagem ? `<img class="sheet-img" src="${imagem}" alt="${escapeHtml(monstro.nome)}" style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin-bottom:12px;">` : ""}
-
-    <h2 class="sheet-titulo" style="text-align:center;margin-bottom:4px;">${escapeHtml(monstro.nome)}</h2>
-    <div class="sheet-meta" style="text-align:center;margin-bottom:8px;">${escapeHtml(monstro.tipo || "Tipo não definido")} · ${escapeHtml(monstro.regiao || "Região não definida")}</div>
+${imagem ? `<div class="sheet-img-wrap">
+  <img class="sheet-img" src="${imagem}" alt="${escapeHtml(monstro.nome)}" style="width:100%;max-height:340px;object-fit:cover;object-position:top center;border-radius:10px;">
+  <button class="sheet-img-expand" onclick="event.stopPropagation(); abrirImagemExpandida(this)" data-img="${escapeHtml(imagem)}" title="Ver imagem completa">⤢</button>
+</div>` : ""}    <div class="sheet-meta" style="text-align:center;margin-bottom:8px;">${escapeHtml(monstro.tipo || "Tipo não definido")} · ${escapeHtml(monstro.regiao || "Região não definida")}</div>
     <div class="sheet-hp-ca" style="text-align:center;margin-bottom:12px;">HP ${monstro.hpAtual}/${monstro.hpMax} · CA ${monstro.ca || 0}</div>
 
     <div class="sheet-status-grid" style="margin-bottom:12px;">
@@ -6352,16 +6360,33 @@ ${bloco("Pontos de Encontro", formatarTexto(monstro.encontros || "Sem pontos de 
   requestAnimationFrame(() => sheet.classList.add("aberto"));
   document.body.classList.add("master-sheet-aberto");
   ativarGestosSheetMonstro();
+  atualizarPeeksSheetMonstro();
+}
+
+function abrirImagemExpandida(btn) {
+  const url = btn.getAttribute("data-img");
+  if (!url) return;
+
+  const overlay = document.createElement("div");
+  overlay.className = "img-expandida-overlay";
+  overlay.innerHTML = `<img src="${url}" class="img-expandida-conteudo" onclick="event.stopPropagation()">`;
+  overlay.onclick = () => overlay.remove();
+
+  document.body.appendChild(overlay);
 }
 
 function ativarGestosSheetMonstro() {
   const sheet = document.getElementById("sheetMonstro");
   if (!sheet) return;
 
- sheet.removeEventListener("touchstart", iniciarDragSheet);
-sheet.removeEventListener("touchmove", moverDragSheet);
-sheet.removeEventListener("touchend", finalizarDragSheet);
-sheet.removeEventListener("mousedown", iniciarDragSheet);
+  sheet.removeEventListener("touchstart", iniciarDragSheet);
+  sheet.removeEventListener("touchmove", moverDragSheet);
+  sheet.removeEventListener("touchend", finalizarDragSheet);
+  sheet.removeEventListener("mousedown", iniciarDragSheet);
+  window.removeEventListener("mousemove", moverDragSheet);
+  window.removeEventListener("mouseup", finalizarDragSheet);
+
+  if (window.innerWidth >= 1040) return; // desktop: sem arrastar — só as setas/prévias
 
   sheet.addEventListener("touchstart", iniciarDragSheet, { passive: true });
   sheet.addEventListener("touchmove", moverDragSheet, { passive: false });
@@ -6579,56 +6604,86 @@ function finalizarDragSheet(e) {
   sheet.style.height = "";
 }
 
+function atualizarPeeksSheetMonstro() {
+  const prevEl = document.getElementById("sheetPeekPrev");
+  const nextEl = document.getElementById("sheetPeekNext");
+  if (!prevEl || !nextEl) return;
+
+  const total = listaSheetCompendio.length;
+  if (!total) { prevEl.style.backgroundImage = ""; prevEl.innerHTML = ""; nextEl.style.backgroundImage = ""; nextEl.innerHTML = ""; return; }
+
+  const atual   = sheetMonstroIndexAtual ?? 0;
+  const idxPrev = (atual - 1 + total) % total;
+  const idxNext = (atual + 1) % total;
+
+  const setPeek = (el, entry) => {
+    if (!entry) { el.style.backgroundImage = ""; el.innerHTML = ""; return; }
+    el.style.backgroundImage = `url("${entry.imagem || "icon-512.png"}")`;
+    el.innerHTML = `<span>${escapeHtml(entry.nome || "")}</span>`;
+  };
+
+  setPeek(prevEl, listaSheetCompendio[idxPrev]);
+  setPeek(nextEl, listaSheetCompendio[idxNext]);
+}
+
 function trocarMonstroSheet(direcao) {
   if (!listaSheetCompendio.length) return;
 
-  // Encontrar o índice atual correto na lista
   const indexNaLista = listaSheetCompendio.findIndex((_, i) => i === sheetMonstroIndexAtual);
   let base = indexNaLista >= 0 ? indexNaLista : 0;
   let novoIndex = base + direcao;
-
   if (novoIndex < 0) novoIndex = listaSheetCompendio.length - 1;
   if (novoIndex >= listaSheetCompendio.length) novoIndex = 0;
 
   const sheet = document.getElementById("sheetMonstro");
   if (!sheet) return;
 
-  const estavaFull = sheet.classList.contains("full");
+  const desktop = window.innerWidth >= 1040;
+  const base3d = desktop ? "translate(-50%, -50%)" : "";
 
-  sheet.style.transition =
-    "transform 0.22s ease, opacity 0.18s ease, height 0.25s ease";
+  const fantasma = sheet.cloneNode(true);
+  fantasma.removeAttribute("id");
+  fantasma.querySelectorAll("[id]").forEach(el => el.removeAttribute("id"));
+  fantasma.style.transition = "none";
+  fantasma.style.zIndex = "10502";
+  fantasma.style.transformOrigin = direcao > 0 ? "right center" : "left center";
+  fantasma.style.transform = desktop ? `${base3d} scale(1)` : "";
+  fantasma.style.opacity = "1";
+  document.body.appendChild(fantasma);
 
-  sheet.style.transform =
-    direcao > 0 ? "translateX(-100%)" : "translateX(100%)";
+  sheetMonstroIndexAtual = novoIndex;
+  abrirSheetMonstroPadrao(listaSheetCompendio[novoIndex]);
 
-  sheet.style.opacity = "0";
+  sheet.style.transition = "none";
+  sheet.style.transformOrigin = direcao > 0 ? "left center" : "right center";
+  sheet.style.transform = desktop
+    ? `${base3d} translateX(${direcao > 0 ? "100%" : "-100%"}) scale(.55)`
+    : (direcao > 0 ? "translateX(100%)" : "translateX(-100%)");
+  sheet.style.opacity = desktop ? "0" : "1";
+
+  void sheet.offsetWidth;
+  void fantasma.offsetWidth;
+
+  requestAnimationFrame(() => {
+    sheet.style.transition = "transform 0.32s ease, opacity 0.28s ease";
+    fantasma.style.transition = "transform 0.32s ease, opacity 0.28s ease";
+
+    sheet.style.transform = desktop ? `${base3d} scale(1)` : "";
+    sheet.style.opacity = "1";
+
+    fantasma.style.transform = desktop
+      ? `${base3d} translateX(${direcao > 0 ? "-100%" : "100%"}) scale(.55)`
+      : (direcao > 0 ? "translateX(-100%)" : "translateX(100%)");
+    fantasma.style.opacity = desktop ? "0" : "1";
+  });
 
   setTimeout(() => {
-    sheetMonstroIndexAtual = novoIndex;
-
-    // troca só o conteúdo, sem fechar/reabrir a sheet
-    abrirSheetMonstroPadrao(listaSheetCompendio[novoIndex]);
-
-    if (estavaFull) {
-      sheet.classList.add("full");
-    }
-
-    sheet.classList.add("aberto");
-
-    sheet.style.transition = "none";
-    sheet.style.transform =
-      direcao > 0 ? "translateX(100%)" : "translateX(-100%)";
-    sheet.style.opacity = "0";
-
-    requestAnimationFrame(() => {
-      sheet.style.transition =
-        "transform 0.28s ease, opacity 0.22s ease, height 0.25s ease";
-
-      sheet.style.transform = "";
-      sheet.style.opacity = "";
-      sheet.style.height = "";
-    });
-  }, 180);
+    fantasma.remove();
+    sheet.style.transition = "";
+    sheet.style.transformOrigin = "";
+    sheet.style.transform = "";
+    sheet.style.opacity = "";
+  }, 340);
 }
 
 function enviarMonstroPadraoParaCombate(monstro) {
@@ -8535,17 +8590,17 @@ const pct = etapasTotal ? Math.min(100, Math.round((etapasConcluidas / etapasTot
 const etapasHtml = (m.etapas || []).map((e, i) => `
   <div class="missao-etapa" onclick="toggleEtapaMissao(${m.id}, ${i})" style="
     display:flex;align-items:center;gap:8px;
-    padding:6px 0;border-bottom:1px solid rgba(216,200,170,0.06);
+    padding:6px 0;border-bottom:1px solid rgba(58,42,28,0.15);
     cursor:pointer;">
     <span style="
       width:18px;height:18px;border-radius:4px;flex-shrink:0;
-      border:1px solid ${e.feita ? p.cor : 'rgba(216,200,170,0.25)'};
+      border:1px solid ${e.feita ? p.cor : 'rgba(58,42,28,0.35)'};
       background:${e.feita ? p.cor + '33' : 'transparent'};
       display:flex;align-items:center;justify-content:center;
       font-size:11px;color:${p.cor};">
       ${e.feita ? '✓' : ''}
     </span>
-    <span style="font-size:13px;color:${e.feita ? '#7a6a5a' : '#d8c8aa'};
+    <span style="font-size:14px;color:${e.feita ? '#7A6A50' : '#2A1A10'};
       text-decoration:${e.feita ? 'line-through' : 'none'};">
       ${escapeHtml(e.nome)}
     </span>
@@ -8558,8 +8613,8 @@ const etapasHtml = (m.etapas || []).map((e, i) => `
       <div class="missao-card-header" onclick="toggleMissaoMundo(${m.id})">
         <div class="missao-card-topo">
           <strong>${escapeHtml(m.nome)}</strong>
-          <span class="lore-badge" style="background:${p.cor}22;color:${p.cor};border:1px solid ${p.cor}44;font-size:10px;padding:2px 7px;">${p.label}</span>
-${m.dificuldade ? `<span class="lore-badge" style="background:${(difInfo[m.dificuldade]||difInfo.medio).cor}22;color:${(difInfo[m.dificuldade]||difInfo.medio).cor};border:1px solid ${(difInfo[m.dificuldade]||difInfo.medio).cor}44;font-size:10px;padding:2px 7px;">${(difInfo[m.dificuldade]||difInfo.medio).label}</span>` : ""}
+          <span class="lore-badge" style="background:${p.cor}22;color:${p.cor};border:1px solid ${p.cor}44;font-size:14px;padding:6px 14px;">${p.label}</span>
+${m.dificuldade ? `<span class="lore-badge" style="background:${(difInfo[m.dificuldade]||difInfo.medio).cor}22;color:${(difInfo[m.dificuldade]||difInfo.medio).cor};border:1px solid ${(difInfo[m.dificuldade]||difInfo.medio).cor}44;font-size:14px;padding:6px 14px;">${(difInfo[m.dificuldade]||difInfo.medio).label}</span>` : ""}
           <span class="npc-toggle-seta">▼</span>
         </div>
         <!-- barra de progresso sempre visível -->
@@ -8567,13 +8622,13 @@ ${m.dificuldade ? `<span class="lore-badge" style="background:${(difInfo[m.dific
           <div class="missao-barra-bg">
             <div class="missao-barra-fill" style="width:${pct}%;background:${p.cor};"></div>
           </div>
-          <small style="color:#7a6a5a;font-size:11px;">${etapasConcluidas} de ${etapasTotal} etapas</small>
+          <small style="color:#7A6A50;font-size:12px;">${etapasConcluidas} de ${etapasTotal} etapas</small>
         </div>
       </div>
 
       <!-- detalhes expansíveis -->
       <div class="npc-card-detalhes" id="missaoDetalhes_${m.id}" style="display:none;max-height:0;overflow:hidden;" data-aberto="0">
-        ${m.desc ? `<p style="color:#b9a98c;font-size:13px;margin:0 0 10px;">${escapeHtml(m.desc)}</p>` : ""}
+        ${m.desc ? `<p style="color:#2A1A10;font-size:14px;line-height:1.5;margin:0 0 10px;">${escapeHtml(m.desc)}</p>` : ""}
         <div style="margin-bottom:8px;">${etapasHtml}</div>
         <div style="margin-top:10px;text-align:right;">
           <span onclick="deletarMissaoMundo(${m.id})" style="cursor:pointer;font-size:12px;color:#8f2222;opacity:0.8;display:inline-block;">🗑 Remover missão</span>
@@ -9209,7 +9264,7 @@ function renderEtapasForm() {
 
   lista.innerHTML = _etapasForm.map((e, i) => `
     <div style="display:flex;align-items:center;gap:8px;padding:4px 0;">
-      <span style="font-size:12px;color:#b9a98c;flex:1;">${escapeHtml(e.nome)}</span>
+      <span style="font-size:14px;color:#2A1A10;flex:1;">${escapeHtml(e.nome)}</span>
       <span onclick="removerEtapaForm(${i})" style="cursor:pointer;color:#8f2222;font-size:14px;">✕</span>
     </div>`).join("");
 }
