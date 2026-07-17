@@ -6266,8 +6266,7 @@ ${imagem ? `<div class="sheet-img-wrap">
     ${monstro.fraquezas ? `<div style="background:#E8E0CC;border-radius:10px;margin-bottom:10px;overflow:hidden;border:1px solid rgba(196,169,91,0.25);"><div style="background:#D4C9A8;padding:7px 12px;text-align:center;"><span style="font-size:10px;color:#4A3728;text-transform:uppercase;letter-spacing:1.5px;font-weight:bold;">Fraquezas</span></div><div style="padding:10px 14px;font-size:13px;color:#2A1A10;line-height:1.6;">${formatarTexto(monstro.fraquezas)}</div></div>` : ""}
     ${bloco("Diálogos", monstro.dialogos?.length ? monstro.dialogos.map(f => `"${escapeHtml(f)}"`).join("<br>") : "Sem falas cadastradas.")}
     ${bloco("Pontos de Encontro", formatarTexto(monstro.encontros || "Sem pontos de encontro cadastrados."))}
-    ${monstro.origem !== "padrao" ? `<button style="width:100%;margin-top:4px;background:rgba(143,34,34,0.8)!important;border:none!important;border-radius:8px;color:#fff!important;padding:10px;font-size:13px;cursor:pointer;" onclick="excluirMonstroMestre(sheetMonstroIndexAtual)">🗑️ Excluir Monstro</button>` : ""}
-  `;
+${monstro.origem !== "padrao" ? `<button style="width:100%;margin-top:4px;background:rgba(143,34,34,0.8)!important;border:none!important;border-radius:8px;color:#fff!important;padding:10px;font-size:13px;cursor:pointer;" onclick="excluirMonstroMestre(${monstro.id})">🗑️ Excluir Monstro</button>` : ""}  `;
 
   sheet.style.transition = "";
   sheet.style.transform  = "";
@@ -6790,7 +6789,8 @@ if (elEnc) elEnc.value = monstro.encontros || "";
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-async function excluirMonstroMestre(index) {
+async function excluirMonstroMestre(id) {
+  const index = monstrosMestre.findIndex(m => m.id === id);
   const monstro = monstrosMestre[index];
   if (!monstro) return;
 
@@ -6849,7 +6849,7 @@ function toggleMinimizarCombate(index) {
 
   monstro.minimizado = !monstro.minimizado;
 
-  const card = document.querySelectorAll(".combate-card")[index];
+  const card = document.querySelector(`.combate-card[data-idx="${index}"]`);
   if (!card) return;
 
   if (monstro.minimizado) {
@@ -6860,6 +6860,21 @@ function toggleMinimizarCombate(index) {
 
   salvarCombatesMestreStorage();
 }
+
+let _combateColunasAnterior = null;
+window.addEventListener("resize", () => {
+  const largura = window.innerWidth;
+  let cols = 1;
+  if (largura >= 1040) cols = 3;
+  else if (largura >= 660) cols = 2;
+
+  if (cols !== _combateColunasAnterior) {
+    _combateColunasAnterior = cols;
+    if (document.getElementById("listaCombateMestre")) {
+      renderCombatesMestre();
+    }
+  }
+});
 
 
 async function salvarTudoForcado() {
@@ -7059,10 +7074,21 @@ function renderHabilidades(texto) {
 }
 
 function renderCombatesMestre() {
-  const lista = document.getElementById("listaCombateMestre");
-  if (!lista) return;
+  const container = document.getElementById("listaCombateMestre");
+  container.innerHTML = "";
 
-  lista.innerHTML = "";
+  const largura = window.innerWidth;
+  let numColunas = 1;
+  if (largura >= 1040) numColunas = 3;
+  else if (largura >= 660) numColunas = 2;
+
+  const colunas = [];
+  for (let i = 0; i < numColunas; i++) {
+    const col = document.createElement("div");
+    col.className = "combate-coluna";
+    container.appendChild(col);
+    colunas.push(col);
+  }
 
   if (!combatesMestre.length) {
     lista.innerHTML = `
@@ -7079,13 +7105,14 @@ function renderCombatesMestre() {
 
     const minimizado = monstro.minimizado ? "minimizado" : "";
     card.className = `combate-card ${minimizado}`;
+    card.dataset.idx = index;
 
     const imagem = monstro.imagem || "icon-512.png";
 
     card.innerHTML = `
 
       <!-- TOPO -->
-      <div class="combate-topo">
+      <div class="combate-topo" onclick="toggleMinimizarCombate(${index})">
 
         <img
           class="combate-img"
@@ -7113,15 +7140,16 @@ function renderCombatesMestre() {
 
         <button
           class="btn-minimizar-combate"
-          onclick="toggleMinimizarCombate(${index})"
+          style="pointer-events:none;"
         >
-          ${monstro.minimizado ? "▼" : "▲"}
+          ${monstro.minimizado ? "▲" : "▼"}
         </button>
 
       </div>
 
       <!-- DETALHES -->
       <div class="combate-detalhes">
+        <div class="combate-detalhes-inner">
 
         <!-- STATUS -->
         <div class="sheet-status-grid" style="margin-top:12px;">
@@ -7300,12 +7328,18 @@ ${monstro.log && monstro.log.length > 0 ? `
           Remover do combate
         </button>
 
+        </div>
       </div>
     `;
 
-    lista.appendChild(card);
+     colunas[index % numColunas].appendChild(card);
   });
 }
+
+
+window.addEventListener("resize", () => layoutCombateMasonry());
+
+window.addEventListener("resize", () => layoutCombateMasonry());
 
 function alterarHpCombate(index, valor) {
   const monstro = combatesMestre[index];
@@ -8261,60 +8295,52 @@ function renderNPCsMundo() {
     const hpCor    = hpPct > 60 ? "#2a7a40" : hpPct > 30 ? "#7a6020" : "#8f2222";
 
     const bloco = (titulo, valor) => valor ? `
-      <div style="background:#F0EBD8;border-radius:8px;margin-bottom:8px;overflow:hidden;border:1px solid rgba(196,169,91,0.2);">
-        <div style="background:#DDD5BC;padding:6px 12px;text-align:center;">
-          <span style="font-size:10px;color:#4A3728;text-transform:uppercase;letter-spacing:1.5px;font-weight:bold;">${titulo}</span>
-        </div>
-        <p style="color:#2A1A10;font-size:13px;margin:0;padding:10px 12px;line-height:1.5;text-align:center;">${escapeHtml(valor)}</p>
+      <div class="npcc-section">
+        <div class="npcc-section-title">${titulo}</div>
+        <p class="npcc-section-body">${escapeHtml(valor)}</p>
       </div>` : "";
 
     return `
-<div class="npc-card-mundo" id="npcMundo_${n.id}" style="background:#F8F4E3;border:1px solid rgba(196,169,91,0.3);border-left:3px solid ${rel.cor};border-radius:10px;margin-bottom:12px;">
-  <div class="npc-card-header" onclick="toggleNPCMundo(${n.id})" style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer;">
-    <div style="width:38px;height:38px;border-radius:50%;background:${cor};color:#fff;font-size:14px;font-weight:bold;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">
-  ${n.imagem ? `<img src="${n.imagem}" style="width:100%;height:100%;object-fit:cover;">` : iniciais}
-</div>
-    <div style="flex:1;min-width:0;">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
-        <strong style="color:#2A1A10;font-size:14px;">${escapeHtml(n.nome)}</strong>
-        <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:${rel.cor}22;color:${rel.cor};border:1px solid ${rel.cor}44;">${rel.label}</span>
-        <span class="npc-toggle-seta" style="margin-left:auto;color:#7A6A50;font-size:12px;">▼</span>
+<div class="npcc-card" id="npcMundo_${n.id}">
+  <div class="npcc-header" onclick="toggleNPCMundo(${n.id})">
+    <div class="npcc-avatar" style="background:${cor};">
+      ${n.imagem ? `<img src="${n.imagem}" style="width:100%;height:100%;object-fit:cover;">` : iniciais}
+    </div>
+    <div class="npcc-identity">
+      <div class="npcc-name-row">
+        <span class="npcc-name">${escapeHtml(n.nome)}</span>
+        <span class="npcc-tag" style="color:${rel.cor};border-color:${rel.cor}66;background:${rel.cor}1a;">${rel.label}</span>
       </div>
-      <small style="color:#7A6A50;font-size:11px;">${[escapeHtml(n.classe||""), escapeHtml(n.regiao||"")].filter(Boolean).join(" · ")}</small>
-      <div style="margin-top:6px;">
-  <div style="display:flex;align-items:center;gap:8px;">
-    <span id="npcHpCoracao_${n.id}" style="font-size:11px;color:${hpCor};font-weight:bold;">❤ ${hpAtual}/${hpMax}</span>
-    <div style="flex:1;height:6px;background:rgba(0,0,0,0.1);border-radius:4px;overflow:hidden;">
-      <div id="npcHpBarra_${n.id}" style="height:100%;width:${hpPct}%;background:${hpCor};border-radius:4px;transition:width 0.3s ease;"></div>
+      <div class="npcc-stat-line">
+        <span id="npcHpCoracao_${n.id}" style="color:${hpCor};">❤ ${hpAtual}/${hpMax}</span>
+        ${d.ca ? `<span>🛡 CA ${d.ca}</span>` : ""}
+      </div>
+      <div class="npcc-hp-track">
+        <div id="npcHpBarra_${n.id}" class="npcc-hp-fill" style="width:${hpPct}%;background:${hpCor};"></div>
+      </div>
     </div>
-  </div>
-  ${d.ca ? `<div style="font-size:11px;color:#7A6A50;font-weight:bold;margin-top:3px;">🛡️ CA ${d.ca}</div>` : ""}
-</div>
-    </div>
+    <span class="npc-toggle-seta npcc-expand">▼</span>
   </div>
 
   <div class="npc-card-detalhes" id="npcDetalhes_${n.id}" style="display:none;max-height:0;overflow:hidden;" data-aberto="0">
-    <div style="padding:0 16px 16px;">
+    <div style="padding:0 22px 20px;">
 
-     <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;padding:10px;background:#F0EBD8;border-radius:8px;border:1px solid rgba(196,169,91,0.2);">
-  <div style="display:flex;gap:4px;">
-    <button onclick="event.stopPropagation();alterarHpNPC(${n.id},-10)" style="flex:1;background:#6b1818!important;border:none!important;border-radius:6px;color:#fff!important;padding:8px 4px;font-size:12px;cursor:pointer;font-weight:bold;">-10</button>
-    <button onclick="event.stopPropagation();alterarHpNPC(${n.id},-5)"  style="flex:1;background:#8f2222!important;border:none!important;border-radius:6px;color:#fff!important;padding:8px 4px;font-size:12px;cursor:pointer;font-weight:bold;">-5</button>
-    <button onclick="event.stopPropagation();alterarHpNPC(${n.id},-1)"  style="flex:1;background:#8f2222!important;border:none!important;border-radius:6px;color:#fff!important;padding:8px 4px;font-size:12px;cursor:pointer;font-weight:bold;">-1</button>
-    <button onclick="event.stopPropagation();alterarHpNPC(${n.id},+1)"  style="flex:1;background:#2a7a40!important;border:none!important;border-radius:6px;color:#fff!important;padding:8px 4px;font-size:12px;cursor:pointer;font-weight:bold;">+1</button>
-    <button onclick="event.stopPropagation();alterarHpNPC(${n.id},+5)"  style="flex:1;background:#2a7a40!important;border:none!important;border-radius:6px;color:#fff!important;padding:8px 4px;font-size:12px;cursor:pointer;font-weight:bold;">+5</button>
-    <button onclick="event.stopPropagation();alterarHpNPC(${n.id},+10)" style="flex:1;background:#1a5c2e!important;border:none!important;border-radius:6px;color:#fff!important;padding:8px 4px;font-size:12px;cursor:pointer;font-weight:bold;">+10</button>
-  </div>
-</div>
-
+      <div class="npcc-mod-row">
+        <button onclick="event.stopPropagation();alterarHpNPC(${n.id},-10)" class="npcc-mod-btn npcc-neg-strong">-10</button>
+        <button onclick="event.stopPropagation();alterarHpNPC(${n.id},-5)"  class="npcc-mod-btn npcc-neg-mid">-5</button>
+        <button onclick="event.stopPropagation();alterarHpNPC(${n.id},-1)"  class="npcc-mod-btn npcc-neg-weak">-1</button>
+        <button onclick="event.stopPropagation();alterarHpNPC(${n.id},+1)"  class="npcc-mod-btn npcc-pos-weak">+1</button>
+        <button onclick="event.stopPropagation();alterarHpNPC(${n.id},+5)"  class="npcc-mod-btn npcc-pos-mid">+5</button>
+        <button onclick="event.stopPropagation();alterarHpNPC(${n.id},+10)" class="npcc-mod-btn npcc-pos-strong">+10</button>
+      </div>
 
       ${(d.status && Object.keys(d.status).length) ? `
-      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:12px;">
+      <div class="npcc-attrs">
         ${["for","des","con","int","sab","car"].map(a=>`
-          <div style="background:#F0EBD8;border-radius:8px;padding:8px 4px;text-align:center;border:1px solid rgba(196,169,91,0.2);">
-            <div style="font-size:9px;color:#7A6A50;text-transform:uppercase;letter-spacing:0.5px;">${a}</div>
-            <div style="font-size:15px;font-weight:bold;color:#2A1A10;">${d.status[a]||10}</div>
-            <div style="font-size:10px;color:#7B1E28;">${mod(d.status[a]||10)}</div>
+          <div class="npcc-attr-box">
+            <div class="npcc-attr-label">${a}</div>
+            <div class="npcc-attr-value">${d.status[a]||10}</div>
+            <div class="npcc-attr-bonus">${mod(d.status[a]||10)}</div>
           </div>`).join("")}
       </div>` : ""}
 
@@ -8325,19 +8351,19 @@ function renderNPCsMundo() {
       ${bloco("Observações", d.observacoes)}
 
       ${(d.velocidade || d.desafio) ? `
-      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
-        ${d.velocidade ? `<span style="background:#F0EBD8;border:1px solid rgba(196,169,91,0.3);border-radius:8px;padding:5px 10px;font-size:12px;color:#2A1A10;"><strong>Vel</strong> ${escapeHtml(d.velocidade)}</span>` : ""}
-        ${d.desafio ? `<span style="background:#F0EBD8;border:1px solid rgba(196,169,91,0.3);border-radius:8px;padding:5px 10px;font-size:12px;color:#2A1A10;"><strong>ND</strong> ${escapeHtml(d.desafio)}</span>` : ""}
+      <div style="display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;">
+        ${d.velocidade ? `<span class="npcc-tag" style="color:var(--g-text);"><strong>Vel</strong> ${escapeHtml(d.velocidade)}</span>` : ""}
+        ${d.desafio ? `<span class="npcc-tag" style="color:var(--g-text);"><strong>ND</strong> ${escapeHtml(d.desafio)}</span>` : ""}
       </div>` : ""}
 
-      ${bloco("⚔️ Habilidades Especiais", d.habilidades)}
+      ${bloco("⚔ Habilidades Especiais", d.habilidades)}
       ${bloco("🎯 Ações", d.acoes)}
       ${bloco("Reações", d.reacoes)}
       ${bloco("Resistências / Imunidades", d.resistencias)}
 
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px;">
-        <button onclick="event.stopPropagation();enviarNPCParaCombate(${n.id})" style="flex:1;background:#8f2222!important;border:none!important;border-radius:8px;color:#fff!important;padding:8px;font-size:12px;cursor:pointer;font-weight:bold;">⚔️ Enviar para Combate</button>
-        <span onclick="deletarNPCMundo(${n.id})" style="cursor:pointer;font-size:12px;color:#8f2222;opacity:0.8;white-space:nowrap;">🗑 Remover</span>
+      <div class="npcc-actions">
+        <button onclick="event.stopPropagation();enviarNPCParaCombate(${n.id})" class="npcc-btn-combat">⚔ Enviar para Combate</button>
+        <span onclick="deletarNPCMundo(${n.id})" class="npcc-btn-remove">🗑 Remover</span>
       </div>
     </div>
   </div>
