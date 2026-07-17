@@ -572,22 +572,20 @@
       <textarea id="monstroLore" placeholder="Lore / história"></textarea>
 
       <!-- HABILIDADES -->
-      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Habilidades Especiais</div>
+      <div class="criar-form-titulo" style="font-size:16px;margin:16px 0 6px;opacity:0.9;">Habilidades Especiais</div>
       <div id="monstroHabilidadesList" style="margin-bottom:6px;"></div>
-      <div style="display:flex;gap:6px;margin-bottom:10px;">
-        <input id="monstroHabilidadeNome" placeholder="Nome (ex: Regeneração)" style="flex:1;">
+      <div class="criar-linha-add" style="display:flex;gap:6px;margin-bottom:6px;">        <input id="monstroHabilidadeNome" placeholder="Nome (ex: Regeneração)" style="flex:1;">
         <input id="monstroHabilidadeDesc" placeholder="Descrição (ex: recupera 10 HP)" style="flex:2;">
-        <button type="button" onclick="adicionarHabilidadeMonstro()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 12px;cursor:pointer;font-size:18px;flex-shrink:0;">+</button>
+        <button type="button" onclick="adicionarHabilidadeMonstro()" class="criar-btn-add">+</button>
       </div>
       <input type="hidden" id="monstroHabilidades">
 
       <!-- ATAQUES -->
-      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Ataques</div>
+      <div class="criar-form-titulo" style="font-size:16px;margin:16px 0 6px;opacity:0.9;">Ataques</div>
       <div id="monstroAtaquesList" style="margin-bottom:6px;"></div>
-      <div style="display:flex;gap:6px;margin-bottom:10px;">
-        <input id="monstroAtaqueNome" placeholder="Nome (ex: Garra)" style="flex:1;">
+      <div class="criar-linha-add" style="display:flex;gap:6px;margin-bottom:6px;">        <input id="monstroAtaqueNome" placeholder="Nome (ex: Garra)" style="flex:1;">
         <input id="monstroAtaqueDesc" placeholder="Descrição (ex: +5, 2d6+4 cortante)" style="flex:2;">
-        <button type="button" onclick="adicionarAtaqueMonstro()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 12px;cursor:pointer;font-size:18px;flex-shrink:0;">+</button>
+        <button type="button" onclick="adicionarAtaqueMonstro()" class="criar-btn-add">+</button>
       </div>
       <input type="hidden" id="monstroAtaques">
 
@@ -632,22 +630,20 @@
       <textarea id="bossMecanicas" placeholder="Mecânicas especiais"></textarea>
 
       <!-- HABILIDADES BOSS -->
-      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Habilidades Especiais</div>
+      <div class="criar-form-titulo" style="font-size:16px;margin:16px 0 6px;opacity:0.9;">Habilidades Especiais</div>
       <div id="bossHabilidadesList" style="margin-bottom:6px;"></div>
-      <div style="display:flex;gap:6px;margin-bottom:10px;">
-        <input id="bossHabilidadeNome" placeholder="Nome" style="flex:1;">
+      <div class="criar-linha-add" style="display:flex;gap:6px;margin-bottom:6px;">        <input id="bossHabilidadeNome" placeholder="Nome" style="flex:1;">
         <input id="bossHabilidadeDesc" placeholder="Descrição" style="flex:2;">
-        <button type="button" onclick="adicionarHabilidadeBoss()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:bold;flex-shrink:0;">+</button>
+        <button type="button" onclick="adicionarHabilidadeBoss()" class="criar-btn-add">+</button>
       </div>
       <input type="hidden" id="bossHabilidades">
 
       <!-- ATAQUES BOSS -->
-      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Ataques</div>
+      <div class="criar-form-titulo" style="font-size:16px;margin:16px 0 6px;opacity:0.9;">Ataques</div>
       <div id="bossAtaquesList" style="margin-bottom:6px;"></div>
-      <div style="display:flex;gap:6px;margin-bottom:10px;">
-        <input id="bossAtaqueNome" placeholder="Nome" style="flex:1;">
+      <div class="criar-linha-add" style="display:flex;gap:6px;margin-bottom:6px;">        <input id="bossAtaqueNome" placeholder="Nome" style="flex:1;">
         <input id="bossAtaqueDesc" placeholder="Descrição" style="flex:2;">
-        <button type="button" onclick="adicionarAtaqueBoss()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:bold;flex-shrink:0;">+</button>
+        <button type="button" onclick="adicionarAtaqueBoss()" class="criar-btn-add">+</button>
       </div>
       <input type="hidden" id="bossAtaques">
 
@@ -693,7 +689,7 @@
       <textarea id="npcObservacoes" placeholder="Observações do mestre"></textarea>
 
       <!-- COMBATE -->
-      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Dados de Combate</div>
+      <div class="criar-form-titulo" style="font-size:16px;margin:16px 0 6px;opacity:0.9;">Dados de Combate</div>
       <div class="criar-campos-duplos">
         <input id="npcHpMax" type="number" placeholder="HP Máximo" value="20">
         <input id="npcCa" type="number" placeholder="CA" value="10">
@@ -704,22 +700,20 @@
       </div>
 
       <!-- HABILIDADES NPC -->
-      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Habilidades Especiais</div>
+      <div class="criar-form-titulo" style="font-size:16px;margin:16px 0 6px;opacity:0.9;">Habilidades Especiais</div>
       <div id="npcHabilidadesList" style="margin-bottom:6px;"></div>
-      <div style="display:flex;gap:6px;margin-bottom:10px;">
-        <input id="npcHabilidadeNome" placeholder="Nome" style="flex:1;">
+      <div class="criar-linha-add" style="display:flex;gap:6px;margin-bottom:6px;">        <input id="npcHabilidadeNome" placeholder="Nome" style="flex:1;">
         <input id="npcHabilidadeDesc" placeholder="Descrição" style="flex:2;">
-        <button type="button" onclick="adicionarHabilidadeNpc()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:bold;flex-shrink:0;">+</button>
+        <button type="button" onclick="adicionarHabilidadeNpc()" class="criar-btn-add">+</button>
       </div>
       <input type="hidden" id="npcHabilidades">
 
       <!-- ATAQUES NPC -->
-      <div class="criar-form-titulo" style="font-size:13px;margin:10px 0 6px;opacity:0.7;">Ações de Combate</div>
+      <div class="criar-form-titulo" style="font-size:16px;margin:16px 0 6px;opacity:0.9;">Ações de Combate</div>
       <div id="npcAcoesList" style="margin-bottom:6px;"></div>
-      <div style="display:flex;gap:6px;margin-bottom:10px;">
-        <input id="npcAcaoNome" placeholder="Nome" style="flex:1;">
+      <div class="criar-linha-add" style="display:flex;gap:6px;margin-bottom:6px;">        <input id="npcAcaoNome" placeholder="Nome" style="flex:1;">
         <input id="npcAcaoDesc" placeholder="Descrição" style="flex:2;">
-        <button type="button" onclick="adicionarAcaoNpc()" style="background:#7B1E28;border:none;border-radius:8px;color:#fff;padding:8px 14px;cursor:pointer;font-weight:bold;flex-shrink:0;">+</button>
+        <button type="button" onclick="adicionarAcaoNpc()" class="criar-btn-add">+</button>
       </div>
       <input type="hidden" id="npcAcoes">
 
